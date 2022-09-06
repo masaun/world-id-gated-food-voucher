@@ -60,7 +60,8 @@
         "@zk-kit/protocols": "^1.11.1",
         "circomlibjs": "^0.1.2",
         "download": "^8.0.0",
-        "patch-package": "^6.4.7"
+        "patch-package": "^6.4.7",
+        "@rari-capital/solmate": "^6.4.0"
     },
     "engines": {
         "node": ">=10.4.0"
