@@ -3,8 +3,8 @@ pragma solidity ^0.8.13;
 
 import { ERC20 } from '@rari-capital/solmate/src/tokens/ERC20.sol';
 import { SafeTransferLib } from '@rari-capital/solmate/src/utils/SafeTransferLib.sol';
-import { IWorldID } from './worldcoin/interfaces/IWorldID.sol';
-import { ByteHasher } from './worldcoin/helpers/ByteHasher.sol';
+import { IWorldID } from '../worldcoin/interfaces/IWorldID.sol';
+import { ByteHasher } from '../worldcoin/helpers/ByteHasher.sol';
 
 /// @title World ID Multiple Airdrop Manager
 /// @author Miguel Piedrafita
