@@ -1,4 +1,8 @@
 {
+    "name": "world-id-gated-ticket",
+    "version": "1.0.0",
+    "description": "World ID-gated ticket",
+    "license": "MIT",
     "devDependencies": {
         "@nomiclabs/hardhat-ethers": "^2.0.0",
         "@nomiclabs/hardhat-etherscan": "^3.0.0",
