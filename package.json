@@ -3,6 +3,22 @@
     "version": "1.0.0",
     "description": "World ID-gated ticket",
     "license": "MIT",
+    "scripts": {
+        "test": "hardhat test",
+        "postinstall": "patch-package",
+        "format": "prettier -w ./",
+        "format:check": "prettier --check ./",
+        "lint": "eslint --ext .tsx,.ts,.js,.jsx ./",
+        "typecheck": "tsc --noEmit --emitDeclarationOnly false --declaration false",
+        "spellcheck": "cspell **/*.{ts,js,tsx,json} -e **/node_modules/ -e /node_modules/"
+    },
+    "config": {
+        "paths": {
+            "build": {
+                "zk-files": "./build/zk-files"
+            }
+        }
+    },
     "devDependencies": {
         "@nomiclabs/hardhat-ethers": "^2.0.0",
         "@nomiclabs/hardhat-etherscan": "^3.0.0",
@@ -48,21 +64,5 @@
     },
     "engines": {
         "node": ">=10.4.0"
-    },
-    "scripts": {
-        "test": "hardhat test",
-        "postinstall": "patch-package",
-        "format": "prettier -w ./",
-        "format:check": "prettier --check ./",
-        "lint": "eslint --ext .tsx,.ts,.js,.jsx ./",
-        "typecheck": "tsc --noEmit --emitDeclarationOnly false --declaration false",
-        "spellcheck": "cspell **/*.{ts,js,tsx,json} -e **/node_modules/ -e /node_modules/"
-    },
-    "config": {
-        "paths": {
-            "build": {
-                "zk-files": "./build/zk-files"
-            }
-        }
     }
 }
