@@ -1,4 +1,4 @@
-## World ID-gated Voucher🎫🆔 for refugees who live in African countries 🌍
+## World ID-gated Food Voucher🎫🆔 for refugees who live in African countries 🌍
 ### Overview
 - There are still issues that refugees could not access foods easily.
   - In case of refugees in africa such as refugees who live in Eastern Africa are suffering food crisis due to COVID-19 pandemic.
@@ -16,17 +16,16 @@
 
 <br>
 
-- Relevant articles: 
-  - Food rations cut for refugees in Eastern Africa as coronavirus stretches resources
-    https://www.wfp.org/news/food-rations-cut-refugees-eastern-africa-coronavirus-stretches-resources
+- Relevant articles:
+  - WFP (The United Nations World Food Programme):  
+    - Food rations cut for refugees in Eastern Africa as coronavirus stretches resources  
+      https://www.wfp.org/news/food-rations-cut-refugees-eastern-africa-coronavirus-stretches-resources  
 
-  - Blockchain Against Hunger: Harnessing Technology In Support Of Syrian Refugees
-    https://www.wfp.org/news/blockchain-against-hunger-harnessing-technology-support-syrian-refugees
+    - Blockchain Against Hunger: Harnessing Technology In Support Of Syrian Refugees  
+      https://www.wfp.org/news/blockchain-against-hunger-harnessing-technology-support-syrian-refugees  
 
-  - WFP Chief: International Community Must Continue to Support Growing Humanitarian Crisis in Bangladesh
-    https://www.wfp.org/news/wfp-chief-international-community-must-continue-support-growing-humanitarian-crisi
-
-
+    - WFP Chief: International Community Must Continue to Support Growing Humanitarian Crisis in Bangladesh  
+      https://www.wfp.org/news/wfp-chief-international-community-must-continue-support-growing-humanitarian-crisi  
 
 <br>
 
