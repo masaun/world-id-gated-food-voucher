@@ -4,6 +4,8 @@ pragma solidity ^0.8.13;
 import { ByteHasher } from './worldcoin/helpers/ByteHasher.sol';
 import { IWorldID } from './worldcoin/interfaces/IWorldID.sol';
 
+import { FoodVoucherNFT } from "./FoodVoucherNFT.sol";
+
 
 /**
  * @title - World ID gated Voucher contract
@@ -15,48 +17,48 @@ contract WorldIdGatedVoucher {
     ///                                  ERRORS                                ///
     //////////////////////////////////////////////////////////////////////////////
 
-    /// @notice Thrown when trying to create or update airdrop details without being the manager
+    /// @notice Thrown when trying to create or update FoodVoucherProgram details without being the manager
     error Unauthorized();
 
     /// @notice Thrown when attempting to reuse a nullifier
     error InvalidNullifier();
 
-    /// @notice Thrown when attempting to claim a non-existant airdrop
-    error InvalidAirdrop();
+    /// @notice Thrown when attempting to claim a non-existant FoodVoucherProgram
+    error InvalidFoodVoucherProgram();
 
 
     ///////////////////////////////////////////////////////////////////////////////
     ///                                  EVENTS                                ///
     //////////////////////////////////////////////////////////////////////////////
 
-    /// @notice Emitted when an airdrop is created
-    /// @param airdropId The id of the airdrop
-    /// @param airdrop The airdrop details
-    event AirdropCreated(uint256 airdropId, Airdrop airdrop);
+    /// @notice Emitted when an FoodVoucherProgram is created
+    /// @param foodVoucherProgramId The id of the foodVoucherProgram
+    /// @param foodVoucherProgram The foodVoucherProgram details
+    event FoodVoucherProgramCreated(uint256 foodVoucherProgramId, FoodVoucherProgram foodVoucherProgram);
 
-    /// @notice Emitted when an airdrop is successfully claimed
-    /// @param receiver The address that received the airdrop
-    event AirdropClaimed(uint256 indexed airdropId, address receiver);
+    /// @notice Emitted when an foodVoucherProgram is successfully claimed
+    /// @param receiver The address that received the foodVoucherProgram
+    event FoodVoucherProgramClaimed(uint256 indexed foodVoucherProgramId, address receiver);
 
-    /// @notice Emitted when the airdropped amount is changed
-    /// @param airdropId The id of the airdrop getting updated
-    /// @param airdrop The new details for the airdrop
-    event AirdropUpdated(uint256 indexed airdropId, Airdrop airdrop);
+    /// @notice Emitted when the foodVoucherProgramped amount is changed
+    /// @param foodVoucherProgramId The id of the foodVoucherProgram getting updated
+    /// @param foodVoucherProgram The new details for the foodVoucherProgram
+    event FoodVoucherProgramUpdated(uint256 indexed foodVoucherProgramId, FoodVoucherProgram foodVoucherProgram);
 
 
     ///////////////////////////////////////////////////////////////////////////////
     ///                                 STRUCTS                                ///
     //////////////////////////////////////////////////////////////////////////////
 
-    /// @notice Stores the details for a specific airdrop
-    /// @param groupId The ID of the Semaphore group that will be eligible to claim this airdrop
-    /// @param token The ERC20 token that will be airdropped to eligible participants
-    /// @param manager The address that manages this airdrop, which is allowed to update the airdrop details.
-    /// @param holder The address holding the tokens that will be airdropped
+    /// @notice Stores the details for a specific foodVoucherProgram
+    /// @param groupId The ID of the Semaphore group that will be eligible to claim this foodVoucherProgram
+    /// @param token The ERC20 token that will be foodVoucherProgramped to eligible participants
+    /// @param manager The address that manages this foodVoucherProgram, which is allowed to update the foodVoucherProgram details.
+    /// @param holder The address holding the tokens that will be foodVoucherProgramped
     /// @param amount The amount of tokens that each participant will receive upon claiming
-    struct Airdrop {
+    struct FoodVoucherProgram {
         uint256 groupId;
-        ERC20 token;
+        FoodVoucherNFT token;
         address manager;
         address holder;
         uint256 amount;
@@ -73,15 +75,15 @@ contract WorldIdGatedVoucher {
     /// @dev Whether a nullifier hash has been used already. Used to prevent double-signaling
     mapping(uint256 => bool) internal nullifierHashes;
 
-    uint256 internal nextAirdropId = 1;
-    mapping(uint256 => Airdrop) public getAirdrop;
+    uint256 internal nextFoodVoucherProgramId = 1;
+    mapping(uint256 => FoodVoucherProgram) public getFoodVoucherProgram;
 
 
     ///////////////////////////////////////////////////////////////////////////////
     ///                               CONSTRUCTOR                              ///
     //////////////////////////////////////////////////////////////////////////////
 
-    /// @notice Deploys a WorldIDAirdrop instance
+    /// @notice Deploys a WorldIDFoodVoucherProgram instance
     /// @param _worldId The WorldID instance that will manage groups and verify proofs
     constructor(IWorldID _worldId) {
         worldId = _worldId;
@@ -92,18 +94,18 @@ contract WorldIdGatedVoucher {
     ///                    CREATE FOOD VOUTUER PROGRAM LOGIC                    ///
     ///////////////////////////////////////////////////////////////////////////////
 
-    /// @notice Create a new airdrop
-    /// @param groupId The ID of the Semaphore group that will be eligible to claim this airdrop
-    /// @param token The ERC20 token that will be airdropped to eligible participants
-    /// @param holder The address holding the tokens that will be airdropped
+    /// @notice Create a new FoodVoucherProgram
+    /// @param groupId The ID of the Semaphore group that will be eligible to claim this FoodVoucherProgram
+    /// @param token The ERC20 token that will be FoodVoucherProgram to eligible participants
+    /// @param holder The address holding the tokens that will be foodVoucherProgramped
     /// @param amount The amount of tokens that each participant will receive upon claiming
-    function createAirdrop(
+    function createFoodVoucherProgram(
         uint256 groupId,
-        ERC20 token,
+        FoodVoucherNFT token,
         address holder,
         uint256 amount
     ) public {
-        Airdrop memory airdrop = Airdrop({
+        FoodVoucherProgram memory foodVoucherProgram = FoodVoucherProgram({
             groupId: groupId,
             token: token,
             manager: msg.sender,
@@ -111,10 +113,10 @@ contract WorldIdGatedVoucher {
             amount: amount
         });
 
-        getAirdrop[nextAirdropId] = airdrop;
-        emit AirdropCreated(nextAirdropId, airdrop);
+        getFoodVoucherProgram[nextFoodVoucherProgramId] = foodVoucherProgram;
+        emit FoodVoucherProgramCreated(nextFoodVoucherProgramId, foodVoucherProgram);
 
-        ++nextAirdropId;
+        ++nextFoodVoucherProgramId;
     }
 
 
@@ -128,7 +130,8 @@ contract WorldIdGatedVoucher {
     /// @param nullifierHash The nullifier for this proof, preventing double signaling, returned by the SDK.
     /// @param proof The zero knowledge proof that demostrates the claimer is registered with World ID, returned by the SDK.
     /// @dev Feel free to rename this method however you want! We've used `claim`, `verify` or `execute` in the past.
-    function claimVoucher(
+    function claimFoodVoucherNFT(
+        uint256 foodVoucherProgramId,
         address receiver,
         uint256 root,
         uint256 nullifierHash,
@@ -137,37 +140,41 @@ contract WorldIdGatedVoucher {
         // first, we make sure this person hasn't done this before
         if (nullifierHashes[nullifierHash]) revert InvalidNullifier();
 
+        FoodVoucherProgram memory foodVoucherProgram = getFoodVoucherProgram[foodVoucherProgramId];
+        if (foodVoucherProgramId == 0 || foodVoucherProgramId >= nextFoodVoucherProgramId) revert InvalidFoodVoucherProgram();
+
         // then, we verify they're registered with WorldID, and the input they've provided is correct
         worldId.verifyProof(
             root,
-            groupId,
+            foodVoucherProgram.groupId,
             abi.encodePacked(receiver).hashToField(),
             nullifierHash,
-            abi.encodePacked(address(this)).hashToField(),
+            abi.encodePacked(address(this), foodVoucherProgramId).hashToField(),
             proof
         );
 
         // finally, we record they've done this, so they can't do it again (proof of uniqueness)
         nullifierHashes[nullifierHash] = true;
+        emit FoodVoucherProgramClaimed(foodVoucherProgramId, receiver);
 
-        // your logic here, make sure to emit some kind of event afterwards!
-
+        //[TODO]: your logic here, make sure to emit some kind of event afterwards!
+        //SafeTransferLib.safeTransferFrom(airdrop.token, airdrop.holder, receiver, airdrop.amount);
     }
 
 
-    ///////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////
     ///                               CONFIG LOGIC                             ///
     //////////////////////////////////////////////////////////////////////////////
 
-    /// @notice Update the details for a given airdrop, for addresses that haven't claimed already. Can only be called by the airdrop creator
-    /// @param airdropId The id of the airdrop to update
-    /// @param airdrop The new details for the airdrop
-    function updateDetails(uint256 airdropId, Airdrop calldata airdrop) public {
-        if (getAirdrop[airdropId].manager != msg.sender) revert Unauthorized();
+    /// @notice Update the details for a given foodVoucherProgram, for addresses that haven't claimed already. Can only be called by the foodVoucherProgram creator
+    /// @param foodVoucherProgramId The id of the foodVoucherProgram to update
+    /// @param foodVoucherProgram The new details for the foodVoucherProgram
+    function updateDetails(uint256 foodVoucherProgramId, FoodVoucherProgram calldata foodVoucherProgram) public {
+        if (getFoodVoucherProgram[foodVoucherProgramId].manager != msg.sender) revert Unauthorized();
 
-        getAirdrop[airdropId] = airdrop;
+        getFoodVoucherProgram[foodVoucherProgramId] = foodVoucherProgram;
 
-        emit AirdropUpdated(airdropId, airdrop);
+        emit FoodVoucherProgramUpdated(foodVoucherProgramId, foodVoucherProgram);
     }
 
 }
