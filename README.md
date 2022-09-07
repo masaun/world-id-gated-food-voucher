@@ -1,3 +1,37 @@
+## World ID-gated Voucher🎫🆔 for refugees who live in African countries 🌍
+### Overview
+- There are still issues that refugees could not access foods easily.
+  - In case of refugees in africa such as refugees who live in Eastern Africa are suffering food crisis due to COVID-19 pandemic.
+    https://www.wfp.org/news/food-rations-cut-refugees-eastern-africa-coronavirus-stretches-resources
+
+<br>
+
+- This is a smart contract that support refugees to be able to access (purchase) essential foods more efficiently and securely in order to reduce hunger by utilizing `World ID-gated voucher` .
+
+<br>
+
+### Resources
+- Worldcoin: 
+  - World ID:
+
+<br>
+
+- Relevant articles: 
+  - Food rations cut for refugees in Eastern Africa as coronavirus stretches resources
+    https://www.wfp.org/news/food-rations-cut-refugees-eastern-africa-coronavirus-stretches-resources
+
+  - Blockchain Against Hunger: Harnessing Technology In Support Of Syrian Refugees
+    https://www.wfp.org/news/blockchain-against-hunger-harnessing-technology-support-syrian-refugees
+
+  - WFP Chief: International Community Must Continue to Support Growing Humanitarian Crisis in Bangladesh
+    https://www.wfp.org/news/wfp-chief-international-community-must-continue-support-growing-humanitarian-crisi
+
+
+
+<br>
+
+<hr>
+
 # World ID Starter Kit (Smart Contracts w/ Hardhat)
 
 **Easiest** way to get started with World ID **on-chain**. This repository contains the minimum requirements to build web3 dApps with [World ID](#-about-world-id), allowing you to easily add sybil-resistance and uniqueness features to your dApp.

@@ -5,10 +5,10 @@ pragma solidity ^0.8.13;
 import { ByteHasher } from './worldcoin/helpers/ByteHasher.sol';
 import { IWorldID } from './worldcoin/interfaces/IWorldID.sol';
 
-import { WorldIdGatedTicket } from './WorldIdGatedTicket.sol';
+import { WorldIdGatedVoucher } from './WorldIdGatedVoucher.sol';
 
 
-contract WorldIdGatedTicketFactory {
+contract WorldIdGatedVoucherFactory {
     using ByteHasher for bytes;
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -35,10 +35,10 @@ contract WorldIdGatedTicketFactory {
     }
 
     /**
-     * @notice Create a new WorldIdGatedTicket
+     * @notice Create a new WorldIdGatedVoucher
      * @param worldId The WorldID instance that will verify the proofs
      */ 
-    function createNewWorldIdGatedTicket(IWorldID worldId) external returns (bool) {
-        WorldIdGatedTicket worldIdGatedTicket = new WorldIdGatedTicket(worldId);
+    function createNewWorldIdGatedVoucher(IWorldID worldId) external returns (bool) {
+        WorldIdGatedVoucher worldIdGatedVoucher = new WorldIdGatedVoucher(worldId);
     }
 }

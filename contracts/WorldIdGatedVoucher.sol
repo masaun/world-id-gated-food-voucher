@@ -4,7 +4,7 @@ pragma solidity ^0.8.13;
 import { ByteHasher } from './worldcoin/helpers/ByteHasher.sol';
 import { IWorldID } from './worldcoin/interfaces/IWorldID.sol';
 
-contract WorldIdGatedTicket {
+contract WorldIdGatedVoucher {
     using ByteHasher for bytes;
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -29,12 +29,12 @@ contract WorldIdGatedTicket {
     }
 
     /// @notice - Verify and execute task
-    /// @param receiver The wallet address of ticket receiver
+    /// @param receiver The wallet address of Voucher receiver
     /// @param root The of the Merkle tree, returned by the SDK.
     /// @param nullifierHash The nullifier for this proof, preventing double signaling, returned by the SDK.
     /// @param proof The zero knowledge proof that demostrates the claimer is registered with World ID, returned by the SDK.
     /// @dev Feel free to rename this method however you want! We've used `claim`, `verify` or `execute` in the past.
-    function claimTicket(
+    function claimVoucher(
         address receiver,
         uint256 root,
         uint256 nullifierHash,
