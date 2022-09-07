@@ -1,4 +1,4 @@
-## World ID-gated Voucher🎫🆔 for refugees who live in African countries 🌍
+## World ID-gated Food Voucher🎫🆔 for refugees who live in African countries 🌍
 ### Overview
 - There are still issues that refugees could not access foods easily.
   - In case of refugees in africa such as refugees who live in Eastern Africa are suffering food crisis due to COVID-19 pandemic.
