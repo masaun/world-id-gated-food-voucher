@@ -28,13 +28,14 @@ contract WorldIdGatedTicket {
         worldId = _worldId;
     }
 
-    /// @param input User's input, used as the signal. Could be something else! (see README)
+    /// @notice - Verify and execute task
+    /// @param receiver The wallet address of ticket receiver
     /// @param root The of the Merkle tree, returned by the SDK.
     /// @param nullifierHash The nullifier for this proof, preventing double signaling, returned by the SDK.
     /// @param proof The zero knowledge proof that demostrates the claimer is registered with World ID, returned by the SDK.
     /// @dev Feel free to rename this method however you want! We've used `claim`, `verify` or `execute` in the past.
-    function verifyAndExecute(
-        address input,
+    function claimTicket(
+        address receiver,
         uint256 root,
         uint256 nullifierHash,
         uint256[8] calldata proof
@@ -46,7 +47,7 @@ contract WorldIdGatedTicket {
         worldId.verifyProof(
             root,
             groupId,
-            abi.encodePacked(input).hashToField(),
+            abi.encodePacked(receiver).hashToField(),
             nullifierHash,
             abi.encodePacked(address(this)).hashToField(),
             proof
@@ -56,5 +57,6 @@ contract WorldIdGatedTicket {
         nullifierHashes[nullifierHash] = true;
 
         // your logic here, make sure to emit some kind of event afterwards!
+
     }
 }
