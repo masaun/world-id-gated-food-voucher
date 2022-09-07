@@ -12,14 +12,14 @@ import {
 
 
 /**
- * @notice - The unit test of the WorldIdGatedTicket
+ * @notice - The unit test of the WorldIdGatedVoucher
  */ 
-describe('WorldIdGatedTicket', function () {
+describe('WorldIdGatedVoucher', function () {
     //@dev - Variables of smart contract instances
-    let worldIdGatedTicket: WorldIdGatedTicket
+    let worldIdGatedVoucher: WorldIdGatedVoucher
 
     //@dev - Variables of smart contract addresses
-    let WORLD_ID_GATED_TICKET: string
+    let WORLD_ID_GATED_Voucher: string
      
     //@dev - Variables of wallet address
     let callerAddr: string
@@ -31,11 +31,11 @@ describe('WorldIdGatedTicket', function () {
     beforeEach(async () => {
         const [signer] = await ethers.getSigners()
         const worldIDAddress = await setUpWorldID()
-        const WorldIdGatedTicket = await ethers.getContractFactory('WorldIdGatedTicket')
-        worldIdGatedTicket = await WorldIdGatedTicket.deploy(worldIDAddress)
-        WORLD_ID_GATED_TICKET = worldIdGatedTicket.address
+        const WorldIdGatedVoucher = await ethers.getContractFactory('WorldIdGatedVoucher')
+        worldIdGatedVoucher = await WorldIdGatedVoucher.deploy(worldIDAddress)
+        WORLD_ID_GATED_Voucher = worldIdGatedVoucher.address
 
-        await worldIdGatedTicket.deployed()
+        await worldIdGatedVoucher.deployed()
 
         callerAddr = await signer.getAddress()
     })
@@ -43,9 +43,9 @@ describe('WorldIdGatedTicket', function () {
     it('Accepts and validates calls', async function () {
         await registerIdentity()
 
-        const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_TICKET, callerAddr)
+        const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_Voucher, callerAddr)
 
-        const tx = await worldIdGatedTicket.claimTicket(
+        const tx = await worldIdGatedVoucher.claimVoucher(
             callerAddr,
             await getRoot(),
             nullifierHash,
@@ -60,9 +60,9 @@ describe('WorldIdGatedTicket', function () {
     it('Rejects duplicated calls', async function () {
         await registerIdentity()
 
-        const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_TICKET, callerAddr)
+        const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_Voucher, callerAddr)
 
-        const tx = await worldIdGatedTicket.claimTicket(
+        const tx = await worldIdGatedVoucher.claimVoucher(
             callerAddr,
             await getRoot(),
             nullifierHash,
@@ -72,41 +72,44 @@ describe('WorldIdGatedTicket', function () {
         await tx.wait()
 
         await expect(
-            worldIdGatedTicket.claimTicket(callerAddr, await getRoot(), nullifierHash, proof)
+            worldIdGatedVoucher.claimVoucher(callerAddr, await getRoot(), nullifierHash, proof)
         ).to.be.revertedWith('InvalidNullifier')
 
         // extra checks here
     })
+    
     it('Rejects calls from non-members', async function () {
         await registerInvalidIdentity()
 
-        const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_TICKET, callerAddr)
+        const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_Voucher, callerAddr)
 
         await expect(
-            worldIdGatedTicket.claimTicket(callerAddr, await getRoot(), nullifierHash, proof)
+            worldIdGatedVoucher.claimVoucher(callerAddr, await getRoot(), nullifierHash, proof)
         ).to.be.revertedWith('InvalidProof')
 
         // extra checks here
     })
+
     it('Rejects calls with an invalid signal', async function () {
         await registerIdentity()
 
-        const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_TICKET, callerAddr)
+        const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_Voucher, callerAddr)
 
         await expect(
-            worldIdGatedTicket.claimTicket(WORLD_ID_GATED_TICKET, await getRoot(), nullifierHash, proof)
+            worldIdGatedVoucher.claimVoucher(WORLD_ID_GATED_Voucher, await getRoot(), nullifierHash, proof)
         ).to.be.revertedWith('InvalidProof')
 
         // extra checks here
     })
+
     it('Rejects calls with an invalid proof', async function () {
         await registerIdentity()
 
-        const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_TICKET, callerAddr)
+        const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_Voucher, callerAddr)
         proof[0] = (BigInt(proof[0]) ^ BigInt(42)).toString()
 
         await expect(
-            worldIdGatedTicket.claimTicket(callerAddr, await getRoot(), nullifierHash, proof)
+            worldIdGatedVoucher.claimVoucher(callerAddr, await getRoot(), nullifierHash, proof)
         ).to.be.revertedWith('InvalidProof')
 
         // extra checks here

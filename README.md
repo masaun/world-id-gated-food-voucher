@@ -6,7 +6,7 @@
 
 <br>
 
-- This is a smart contract that support refugees to be able to access (purchase) essential foods easily and securely by utilizing `World ID-gated voucher` .
+- This is a smart contract that support refugees to be able to access (purchase) essential foods more efficiently and securely in order to reduce hunger by utilizing `World ID-gated voucher` .
 
 <br>
 
