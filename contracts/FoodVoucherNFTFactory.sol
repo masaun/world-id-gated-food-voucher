@@ -6,6 +6,12 @@ import { FoodVoucherNFT } from './FoodVoucherNFT.sol';
 
 contract FoodVoucherNFTFactory {
 
-    //[TODO]: 
+    constructor() {
+        //[TODO]: 
+    }
+
+    function createNewFoodVoucherNFT() external returns (bool) {
+        FoodVoucherNFT foodVoucherNFT = new FoodVoucherNFT();
+    }
 
 }
