@@ -74,6 +74,9 @@ contract WorldIdGatedVoucher {
     /// @dev The WorldID instance that will be used for managing groups and verifying proofs
     IWorldID internal immutable worldId;
 
+    /// @dev The WorldID group ID (1)
+    //uint256 internal immutable groupId = 1;
+
     /// @dev Whether a nullifier hash has been used already. Used to prevent double-signaling
     mapping(uint256 => bool) internal nullifierHashes;
 
@@ -139,18 +142,20 @@ contract WorldIdGatedVoucher {
         uint256 nullifierHash,
         uint256[8] calldata proof
     ) public {
-        // first, we make sure this person hasn't done this before
+        //@dev - first, we make sure this person hasn't done this before
         if (nullifierHashes[nullifierHash]) revert InvalidNullifier();
 
         FoodVoucherProgram memory foodVoucherProgram = getFoodVoucherProgram[foodVoucherProgramId];
         if (foodVoucherProgramId == 0 || foodVoucherProgramId >= nextFoodVoucherProgramId) revert InvalidFoodVoucherProgram();
 
-        // then, we verify they're registered with WorldID, and the input they've provided is correct
+        //@dev - then, we verify they're registered with WorldID, and the input they've provided is correct
         worldId.verifyProof(
             root,
+            //groupId, // Test
             foodVoucherProgram.groupId,
             abi.encodePacked(receiver).hashToField(),
             nullifierHash,
+            //abi.encodePacked(address(this)).hashToField(),  // Test
             abi.encodePacked(address(this), foodVoucherProgramId).hashToField(),
             proof
         );
