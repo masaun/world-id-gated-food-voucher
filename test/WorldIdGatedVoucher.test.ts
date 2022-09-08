@@ -19,11 +19,9 @@ import { WorldIdGatedVoucher, Semaphore, IncrementalBinaryTree, PoseidonT3 } fro
 describe('WorldIdGatedVoucher', function () {
     //@dev - Variables of smart contract instances
     let worldIdGatedVoucher: WorldIdGatedVoucher
-    let semaphore: Semaphore
 
     //@dev - Variables of smart contract addresses
     let WORLD_ID_GATED_VOUCHER: string
-    let SEMAPHORE: string
      
     //@dev - Variables of wallet address
     let callerAddr: string
@@ -33,7 +31,7 @@ describe('WorldIdGatedVoucher', function () {
     })
 
     beforeEach(async () => {
-        const [signer] = await ethers.getSigners()
+        const [signer, user1] = await ethers.getSigners()
         const worldIDAddress = await setUpWorldID()
 
         //@dev - Deploy the WorldIdGatedVoucher.sol
@@ -42,20 +40,25 @@ describe('WorldIdGatedVoucher', function () {
         WORLD_ID_GATED_VOUCHER = worldIdGatedVoucher.address
         console.log(`Deployed-address of the WorldIdGatedVoucher.sol: ${ WORLD_ID_GATED_VOUCHER }`)
         await worldIdGatedVoucher.deployed()
+
+        //@dev - Assign a caller address
+        callerAddr = await signer.getAddress()
     })
 
     it('Accepts and validates calls', async function () {
+        const [signer, user1] = await ethers.getSigners()
+
         //@dev - Create a new FoodVoucherProgram
         const groupId = 1
         const token = "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6"
-        const holder = "0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1"
+        const holder = user1.address
         const amount = ethers.utils.parseEther("1")
         let tx1 = await worldIdGatedVoucher.createFoodVoucherProgram(groupId, token, holder, amount)
         let txReceipt = await tx1.wait()
-        console.log(`txReceipt of worldIdGatedVoucher#createFoodVoucherProgram(): ${ JSON.stringify(txReceipt, null, 2) }`)
+        //console.log(`txReceipt of worldIdGatedVoucher#createFoodVoucherProgram(): ${ JSON.stringify(txReceipt, null, 2) }`)
 
         //[TODO]: Get foodVoucherProgramId via SC
-        let foodVoucherProgramId: number = 0
+        let foodVoucherProgramId: number = 1
 
         await registerIdentity()
 
