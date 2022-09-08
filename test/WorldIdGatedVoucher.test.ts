@@ -42,51 +42,12 @@ describe('WorldIdGatedVoucher', function () {
         WORLD_ID_GATED_VOUCHER = worldIdGatedVoucher.address
         console.log(`Deployed-address of the WorldIdGatedVoucher.sol: ${ WORLD_ID_GATED_VOUCHER }`)
         await worldIdGatedVoucher.deployed()
-
-        //@dev - Deploy the library of the Hashes.sol#PoseidonT3
-        // const PoseidonT3 = await ethers.getContractFactory("PoseidonT3")
-        // const poseidonT3 = await PoseidonT3.deploy()
-        // const POSEIDON_T3 = poseidonT3.address
-        // console.log(`Deployed-address of the Hashes.sol#PoseidonT3: ${ POSEIDON_T3 }`)
-        // await poseidonT3.deployed()
-
-        // const Hashes = await ethers.getContractFactory("PoseidonT3")
-        // const hashes = await Hashes.deploy()
-        // const HASHES = hashes.address
-        // console.log(`Deployed-address of the Hashes.sol#PoseidonT3: ${ HASHES }`)
-        // await hashes.deployed()
-
-        //@dev - Deploy the library of the IncrementalBinaryTree.sol
-        // const IncrementalBinaryTree = await ethers.getContractFactory("IncrementalBinaryTree")
-        // const incrementalBinaryTree = await IncrementalBinaryTree.deploy()
-        // const INCREMENTAL_BINARY_TREE = incrementalBinaryTree.address
-        // console.log(`Deployed-address of the IncrementalBinaryTree.sol: ${ INCREMENTAL_BINARY_TREE }`)
-        // await incrementalBinaryTree.deployed({
-        //     libraries: {
-        //         PoseidonT3: POSEIDON_T3
-        //         //Hashes: HASHES
-        //     },
-        // })
-
-        //@dev - Deploy the Semaphore.sol
-        const Semaphore = await ethers.getContractFactory('Semaphore', {
-            libraries: {
-                IncrementalBinaryTree: INCREMENTAL_BINARY_TREE
-            },
-        })
-        semaphore = await Semaphore.deploy()
-        SEMAPHORE = semaphore.address
-        console.log(`Deployed-address of the Semaphore.sol: ${ SEMAPHORE }`)
-        await semaphore.deployed()
-
-        //@dev - Assign caller address
-        callerAddr = await signer.getAddress()
     })
 
     it('Accepts and validates calls', async function () {
         await registerIdentity()
 
-        const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_Voucher, callerAddr)
+        const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_VOUCHER, callerAddr)
 
         const tx = await worldIdGatedVoucher.claimFoodVoucherNFT(
             callerAddr,
