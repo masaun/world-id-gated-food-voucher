@@ -44,11 +44,11 @@ describe('WorldIdGatedVoucher', function () {
         await worldIdGatedVoucher.deployed()
 
         //@dev - Deploy the library of the Hashes.sol#PoseidonT3
-        const PoseidonT3 = await ethers.getContractFactory("PoseidonT3")
-        const poseidonT3 = await PoseidonT3.deploy()
-        const POSEIDON_T3 = poseidonT3.address
-        console.log(`Deployed-address of the Hashes.sol#PoseidonT3: ${ POSEIDON_T3 }`)
-        await poseidonT3.deployed()
+        // const PoseidonT3 = await ethers.getContractFactory("PoseidonT3")
+        // const poseidonT3 = await PoseidonT3.deploy()
+        // const POSEIDON_T3 = poseidonT3.address
+        // console.log(`Deployed-address of the Hashes.sol#PoseidonT3: ${ POSEIDON_T3 }`)
+        // await poseidonT3.deployed()
 
         // const Hashes = await ethers.getContractFactory("PoseidonT3")
         // const hashes = await Hashes.deploy()
@@ -57,16 +57,16 @@ describe('WorldIdGatedVoucher', function () {
         // await hashes.deployed()
 
         //@dev - Deploy the library of the IncrementalBinaryTree.sol
-        const IncrementalBinaryTree = await ethers.getContractFactory("IncrementalBinaryTree")
-        const incrementalBinaryTree = await IncrementalBinaryTree.deploy()
-        const INCREMENTAL_BINARY_TREE = incrementalBinaryTree.address
-        console.log(`Deployed-address of the IncrementalBinaryTree.sol: ${ INCREMENTAL_BINARY_TREE }`)
-        await incrementalBinaryTree.deployed({
-            libraries: {
-                PoseidonT3: POSEIDON_T3
-                //Hashes: HASHES
-            },
-        })
+        // const IncrementalBinaryTree = await ethers.getContractFactory("IncrementalBinaryTree")
+        // const incrementalBinaryTree = await IncrementalBinaryTree.deploy()
+        // const INCREMENTAL_BINARY_TREE = incrementalBinaryTree.address
+        // console.log(`Deployed-address of the IncrementalBinaryTree.sol: ${ INCREMENTAL_BINARY_TREE }`)
+        // await incrementalBinaryTree.deployed({
+        //     libraries: {
+        //         PoseidonT3: POSEIDON_T3
+        //         //Hashes: HASHES
+        //     },
+        // })
 
         //@dev - Deploy the Semaphore.sol
         const Semaphore = await ethers.getContractFactory('Semaphore', {
@@ -103,7 +103,7 @@ describe('WorldIdGatedVoucher', function () {
     it('Rejects duplicated calls', async function () {
         await registerIdentity()
 
-        const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_Voucher, callerAddr)
+        const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_VOUCHER, callerAddr)
 
         const tx = await worldIdGatedVoucher.claimFoodVoucherNFT(
             callerAddr,
@@ -124,7 +124,7 @@ describe('WorldIdGatedVoucher', function () {
     it('Rejects calls from non-members', async function () {
         await registerInvalidIdentity()
 
-        const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_Voucher, callerAddr)
+        const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_VOUCHER, callerAddr)
 
         await expect(
             worldIdGatedVoucher.claimFoodVoucherNFT(callerAddr, await getRoot(), nullifierHash, proof)
@@ -136,10 +136,10 @@ describe('WorldIdGatedVoucher', function () {
     it('Rejects calls with an invalid signal', async function () {
         await registerIdentity()
 
-        const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_Voucher, callerAddr)
+        const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_VOUCHER, callerAddr)
 
         await expect(
-            worldIdGatedVoucher.claimFoodVoucherNFT(WORLD_ID_GATED_Voucher, await getRoot(), nullifierHash, proof)
+            worldIdGatedVoucher.claimFoodVoucherNFT(WORLD_ID_GATED_VOUCHER, await getRoot(), nullifierHash, proof)
         ).to.be.revertedWith('InvalidProof')
 
         // extra checks here
@@ -148,7 +148,7 @@ describe('WorldIdGatedVoucher', function () {
     it('Rejects calls with an invalid proof', async function () {
         await registerIdentity()
 
-        const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_Voucher, callerAddr)
+        const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_VOUCHER, callerAddr)
         proof[0] = (BigInt(proof[0]) ^ BigInt(42)).toString()
 
         await expect(
