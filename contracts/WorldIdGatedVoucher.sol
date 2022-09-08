@@ -4,7 +4,7 @@ pragma solidity ^0.8.13;
 import { ByteHasher } from './worldcoin/helpers/ByteHasher.sol';
 import { IWorldID } from './worldcoin/interfaces/IWorldID.sol';
 
-import { Semaphore } from "@worldcoin/world-id-contracts/src/Semaphore.sol";
+//import { Semaphore } from "@worldcoin/world-id-contracts/src/Semaphore.sol";
 
 import { FoodVoucherNFT } from "./FoodVoucherNFT.sol";
 

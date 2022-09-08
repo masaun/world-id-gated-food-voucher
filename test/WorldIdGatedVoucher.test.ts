@@ -10,6 +10,8 @@ import {
     setUpWorldID,
 } from './worldcoin/helpers/InteractsWithWorldID'
 
+import { WorldIdGatedVoucher, Semaphore, IncrementalBinaryTree, Hashes } from "../typechain"
+
 
 /**
  * @notice - The unit test of the WorldIdGatedVoucher
@@ -17,9 +19,11 @@ import {
 describe('WorldIdGatedVoucher', function () {
     //@dev - Variables of smart contract instances
     let worldIdGatedVoucher: WorldIdGatedVoucher
+    let semaphore: Semaphore
 
     //@dev - Variables of smart contract addresses
-    let WORLD_ID_GATED_Voucher: string
+    let WORLD_ID_GATED_VOUCHER: string
+    let SEMAPHORE: string
      
     //@dev - Variables of wallet address
     let callerAddr: string
@@ -31,12 +35,42 @@ describe('WorldIdGatedVoucher', function () {
     beforeEach(async () => {
         const [signer] = await ethers.getSigners()
         const worldIDAddress = await setUpWorldID()
+
+        //@dev - Deploy the WorldIdGatedVoucher.sol
         const WorldIdGatedVoucher = await ethers.getContractFactory('WorldIdGatedVoucher')
         worldIdGatedVoucher = await WorldIdGatedVoucher.deploy(worldIDAddress)
-        WORLD_ID_GATED_Voucher = worldIdGatedVoucher.address
-
+        WORLD_ID_GATED_VOUCHER = worldIdGatedVoucher.address
+        console.log(`Deployed-address of the WorldIdGatedVoucher.sol: ${ WORLD_ID_GATED_VOUCHER }`)
         await worldIdGatedVoucher.deployed()
 
+        //@dev - Deploy the library of the Hashes.sol#PoseidonT3
+        const Hashes = await ethers.getContractFactory("PoseidonT3")
+        const hashes = await Hashes.deploy()
+        const HASHES = hashes.address
+        await hashes.deployed()
+
+        //@dev - Deploy the library of the IncrementalBinaryTree.sol
+        const IncrementalBinaryTree = await ethers.getContractFactory("IncrementalBinaryTree")
+        const incrementalBinaryTree = await IncrementalBinaryTree.deploy()
+        const INCREMENTAL_BINARY_TREE = incrementalBinaryTree.address
+        await incrementalBinaryTree.deployed({
+            libraries: {
+                Hashes: HASHES
+            },
+        })
+
+        //@dev - Deploy the Semaphore.sol
+        const Semaphore = await ethers.getContractFactory('Semaphore', {
+            libraries: {
+                IncrementalBinaryTree: INCREMENTAL_BINARY_TREE
+            },
+        })
+        semaphore = await Semaphore.deploy()
+        SEMAPHORE = semaphore.address
+        console.log(`Deployed-address of the Semaphore.sol: ${ SEMAPHORE }`)
+        await semaphore.deployed()
+
+        //@dev - Assign caller address
         callerAddr = await signer.getAddress()
     })
 

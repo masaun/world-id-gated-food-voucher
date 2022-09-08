@@ -10,6 +10,14 @@
 
 <br>
 
+### Test
+- Unit test of the WorldIdGatedVoucher.sol
+```
+npm run test-unit:WorldIdGatedVoucher
+```
+
+<br>
+
 ### Resources
 - Worldcoin: 
   - World ID:

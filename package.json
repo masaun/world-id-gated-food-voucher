@@ -5,6 +5,7 @@
     "license": "MIT",
     "scripts": {
         "test": "hardhat test",
+        "test-unit:WorldIdGatedVoucher": "hardhat test ./test/WorldIdGatedVoucher.test.ts --network hardhat",
         "postinstall": "patch-package",
         "format": "prettier -w ./",
         "format:check": "prettier --check ./",
