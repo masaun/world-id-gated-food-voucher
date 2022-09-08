@@ -132,7 +132,7 @@ contract WorldIdGatedVoucher {
     /// @param nullifierHash The nullifier for this proof, preventing double signaling, returned by the SDK.
     /// @param proof The zero knowledge proof that demostrates the claimer is registered with World ID, returned by the SDK.
     /// @dev Feel free to rename this method however you want! We've used `claim`, `verify` or `execute` in the past.
-    function claimFoodVoucherNFT(
+    function claimFoodVoucher(
         uint256 foodVoucherProgramId,
         address receiver,
         uint256 root,
