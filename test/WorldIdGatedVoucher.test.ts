@@ -45,8 +45,17 @@ describe('WorldIdGatedVoucher', function () {
     })
 
     it('Accepts and validates calls', async function () {
+        //@dev - Create a new FoodVoucherProgram
+        const groupId = 1
+        const token = "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6"
+        const holder = "0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1"
+        const amount = ethers.utils.parseEther("1")
+        let tx1 = await worldIdGatedVoucher.createFoodVoucherProgram(groupId, token, holder, amount)
+        let txReceipt = await tx1.wait()
+        console.log(`txReceipt of worldIdGatedVoucher#createFoodVoucherProgram(): ${ JSON.stringify(txReceipt, null, 2) }`)
+
         //[TODO]: Get foodVoucherProgramId via SC
-        let foodVoucherProgramId: BigNumber = 0
+        let foodVoucherProgramId: number = 0
 
         await registerIdentity()
 
