@@ -10,7 +10,7 @@ import {
     setUpWorldID,
 } from './worldcoin/helpers/InteractsWithWorldID'
 
-import { WorldIdGatedVoucher, Semaphore, IncrementalBinaryTree, Hashes } from "../typechain"
+import { WorldIdGatedVoucher, Semaphore, IncrementalBinaryTree, PoseidonT3 } from "../typechain"
 
 
 /**
@@ -44,18 +44,27 @@ describe('WorldIdGatedVoucher', function () {
         await worldIdGatedVoucher.deployed()
 
         //@dev - Deploy the library of the Hashes.sol#PoseidonT3
-        const Hashes = await ethers.getContractFactory("PoseidonT3")
-        const hashes = await Hashes.deploy()
-        const HASHES = hashes.address
-        await hashes.deployed()
+        const PoseidonT3 = await ethers.getContractFactory("PoseidonT3")
+        const poseidonT3 = await PoseidonT3.deploy()
+        const POSEIDON_T3 = poseidonT3.address
+        console.log(`Deployed-address of the Hashes.sol#PoseidonT3: ${ POSEIDON_T3 }`)
+        await poseidonT3.deployed()
+
+        // const Hashes = await ethers.getContractFactory("PoseidonT3")
+        // const hashes = await Hashes.deploy()
+        // const HASHES = hashes.address
+        // console.log(`Deployed-address of the Hashes.sol#PoseidonT3: ${ HASHES }`)
+        // await hashes.deployed()
 
         //@dev - Deploy the library of the IncrementalBinaryTree.sol
         const IncrementalBinaryTree = await ethers.getContractFactory("IncrementalBinaryTree")
         const incrementalBinaryTree = await IncrementalBinaryTree.deploy()
         const INCREMENTAL_BINARY_TREE = incrementalBinaryTree.address
+        console.log(`Deployed-address of the IncrementalBinaryTree.sol: ${ INCREMENTAL_BINARY_TREE }`)
         await incrementalBinaryTree.deployed({
             libraries: {
-                Hashes: HASHES
+                PoseidonT3: POSEIDON_T3
+                //Hashes: HASHES
             },
         })
 
