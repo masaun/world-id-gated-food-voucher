@@ -62,8 +62,7 @@
         "download": "^8.0.0",
         "patch-package": "^6.4.7",
         "@rari-capital/solmate": "^6.4.0",
-        "@openzeppelin/contracts": "^4.7.3",
-        "@semaphore-protocol/contracts": "^2.0.0"
+        "@openzeppelin/contracts": "^4.7.3"
     },
     "engines": {
         "node": ">=10.4.0"
