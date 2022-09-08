@@ -52,7 +52,7 @@ describe('WorldIdGatedVoucher', function () {
 
         const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_VOUCHER, callerAddr)
 
-        const tx = await worldIdGatedVoucher.claimFoodVoucherNFT(
+        const tx = await worldIdGatedVoucher.claimFoodVoucher(
             foodVoucherProgramId, 
             callerAddr,  // receiver
             await getRoot(),
@@ -73,7 +73,7 @@ describe('WorldIdGatedVoucher', function () {
 
         const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_VOUCHER, callerAddr)
 
-        const tx = await worldIdGatedVoucher.claimFoodVoucherNFT(
+        const tx = await worldIdGatedVoucher.claimFoodVoucher(
             foodVoucherProgramId, 
             callerAddr,  // receiver
             await getRoot(),
@@ -84,7 +84,7 @@ describe('WorldIdGatedVoucher', function () {
         await tx.wait()
 
         await expect(
-            worldIdGatedVoucher.claimFoodVoucherNFT(callerAddr, await getRoot(), nullifierHash, proof)
+            worldIdGatedVoucher.claimFoodVoucher(callerAddr, await getRoot(), nullifierHash, proof)
         ).to.be.revertedWith('InvalidNullifier')
 
         // extra checks here
@@ -99,7 +99,7 @@ describe('WorldIdGatedVoucher', function () {
         const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_VOUCHER, callerAddr)
 
         await expect(
-            worldIdGatedVoucher.claimFoodVoucherNFT(foodVoucherProgramId, callerAddr, await getRoot(), nullifierHash, proof)
+            worldIdGatedVoucher.claimFoodVoucher(foodVoucherProgramId, callerAddr, await getRoot(), nullifierHash, proof)
         ).to.be.revertedWith('InvalidProof')
 
         // extra checks here
@@ -111,7 +111,7 @@ describe('WorldIdGatedVoucher', function () {
         const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_VOUCHER, callerAddr)
 
         await expect(
-            worldIdGatedVoucher.claimFoodVoucherNFT(WORLD_ID_GATED_VOUCHER, await getRoot(), nullifierHash, proof)
+            worldIdGatedVoucher.claimFoodVoucher(WORLD_ID_GATED_VOUCHER, await getRoot(), nullifierHash, proof)
         ).to.be.revertedWith('InvalidProof')
 
         // extra checks here
@@ -127,7 +127,7 @@ describe('WorldIdGatedVoucher', function () {
         proof[0] = (BigInt(proof[0]) ^ BigInt(42)).toString()
 
         await expect(
-            worldIdGatedVoucher.claimFoodVoucherNFT(foodVoucherProgramId, callerAddr, await getRoot(), nullifierHash, proof)
+            worldIdGatedVoucher.claimFoodVoucher(foodVoucherProgramId, callerAddr, await getRoot(), nullifierHash, proof)
         ).to.be.revertedWith('InvalidProof')
 
         // extra checks here
