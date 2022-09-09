@@ -77,8 +77,7 @@ describe('WorldIdGatedVoucher', function () {
         //@dev - Create a new FoodVoucherProgram
         const groupId = 1
         const token = FOOD_VOUCHER_NFT
-        const holder = signer.address
-        //const holder = user1.address
+        const holder = user1.address
         const amount = ethers.utils.parseEther("1")
         let tx1 = await worldIdGatedVoucher.createFoodVoucherProgram(groupId, token, holder, amount)
         //let txReceipt = await tx1.wait()
@@ -109,8 +108,7 @@ describe('WorldIdGatedVoucher', function () {
         //@dev - Create a new FoodVoucherProgram
         const groupId = 1
         const token = FOOD_VOUCHER_NFT
-        const holder = signer.address
-        //const holder = user1.address
+        const holder = user1.address
         const amount = ethers.utils.parseEther("1")
         let tx1 = await worldIdGatedVoucher.createFoodVoucherProgram(groupId, token, holder, amount)
         //let txReceipt = await tx1.wait()
@@ -144,8 +142,7 @@ describe('WorldIdGatedVoucher', function () {
         //@dev - Create a new FoodVoucherProgram
         const groupId = 1
         const token = FOOD_VOUCHER_NFT
-        const holder = signer.address
-        //const holder = user1.address
+        const holder = user1.address
         const amount = ethers.utils.parseEther("1")
         let tx1 = await worldIdGatedVoucher.createFoodVoucherProgram(groupId, token, holder, amount)
         //let txReceipt = await tx1.wait()
@@ -169,8 +166,7 @@ describe('WorldIdGatedVoucher', function () {
         //@dev - Create a new FoodVoucherProgram
         const groupId = 1
         const token = FOOD_VOUCHER_NFT
-        const holder = signer.address
-        //const holder = user1.address
+        const holder = user1.address
         const amount = ethers.utils.parseEther("1")
         let tx1 = await worldIdGatedVoucher.createFoodVoucherProgram(groupId, token, holder, amount)
         //let txReceipt = await tx1.wait()
@@ -194,8 +190,7 @@ describe('WorldIdGatedVoucher', function () {
         //@dev - Create a new FoodVoucherProgram
         const groupId = 1
         const token = FOOD_VOUCHER_NFT
-        const holder = signer.address
-        //const holder = user1.address
+        const holder = user1.address
         const amount = ethers.utils.parseEther("1")
         let tx1 = await worldIdGatedVoucher.createFoodVoucherProgram(groupId, token, holder, amount)
         //let txReceipt = await tx1.wait()
