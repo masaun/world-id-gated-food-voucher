@@ -65,8 +65,8 @@ describe('WorldIdGatedVoucher', function () {
         console.log(`Deployed-address of the FoodVoucherNFT.sol: ${ FOOD_VOUCHER_NFT }`)
         await foodVoucherNFT.deployed()
 
-        //@dev - Mint a FoodVoucherNFT (tokenID=1)
-        let tx = await foodVoucherNFT.mintFoodVoucherNFT(user1.address, 1)
+        //@dev - Mint a FoodVoucherNFT (tokenID=0)
+        let tx = await foodVoucherNFT.mintFoodVoucherNFT(user1.address)
 
         //@dev - Assign a caller address
         callerAddr = await signer.getAddress()
@@ -77,7 +77,8 @@ describe('WorldIdGatedVoucher', function () {
         //@dev - Create a new FoodVoucherProgram
         const groupId = 1
         const token = FOOD_VOUCHER_NFT
-        const holder = user1.address
+        const holder = signer.address
+        //const holder = user1.address
         const amount = ethers.utils.parseEther("1")
         let tx1 = await worldIdGatedVoucher.createFoodVoucherProgram(groupId, token, holder, amount)
         //let txReceipt = await tx1.wait()
@@ -92,6 +93,7 @@ describe('WorldIdGatedVoucher', function () {
 
         const tx2 = await worldIdGatedVoucher.claimFoodVoucher(
             foodVoucherProgramId, 
+            //WORLD_ID_GATED_VOUCHER, // receiver
             callerAddr,  // receiver
             await getRoot(),
             nullifierHash,
@@ -105,7 +107,7 @@ describe('WorldIdGatedVoucher', function () {
 
     it('Rejects duplicated calls', async function () {
         //[TODO]: Get foodVoucherProgramId via SC
-        let foodVoucherProgramId = 0
+        let foodVoucherProgramId = 1
 
         await registerIdentity()
 
@@ -130,7 +132,7 @@ describe('WorldIdGatedVoucher', function () {
     
     it('Rejects calls from non-members', async function () {
         //[TODO]: Get foodVoucherProgramId via SC
-        let foodVoucherProgramId = 0
+        let foodVoucherProgramId = 1
 
         await registerInvalidIdentity()
 
@@ -157,7 +159,7 @@ describe('WorldIdGatedVoucher', function () {
 
     it('Rejects calls with an invalid proof', async function () {
         //[TODO]: Get foodVoucherProgramId via SC
-        let foodVoucherProgramId = 0
+        let foodVoucherProgramId = 1
 
         await registerIdentity()
 
