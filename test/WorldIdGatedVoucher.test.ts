@@ -105,7 +105,7 @@ describe('WorldIdGatedVoucher', function () {
 
     it('Rejects duplicated calls', async function () {
         //[TODO]: Get foodVoucherProgramId via SC
-        let foodVoucherProgramId = 0
+        let foodVoucherProgramId = 1
 
         await registerIdentity()
 
@@ -130,7 +130,7 @@ describe('WorldIdGatedVoucher', function () {
     
     it('Rejects calls from non-members', async function () {
         //[TODO]: Get foodVoucherProgramId via SC
-        let foodVoucherProgramId = 0
+        let foodVoucherProgramId = 1
 
         await registerInvalidIdentity()
 
@@ -157,7 +157,7 @@ describe('WorldIdGatedVoucher', function () {
 
     it('Rejects calls with an invalid proof', async function () {
         //[TODO]: Get foodVoucherProgramId via SC
-        let foodVoucherProgramId = 0
+        let foodVoucherProgramId = 1
 
         await registerIdentity()
 

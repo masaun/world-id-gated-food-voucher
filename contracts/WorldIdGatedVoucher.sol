@@ -81,7 +81,7 @@ contract WorldIdGatedVoucher {
     mapping(uint256 => bool) internal nullifierHashes;
 
     uint256 internal nextFoodVoucherProgramId = 1;
-    mapping(uint256 => FoodVoucherProgram) public getFoodVoucherProgram;
+    mapping(uint256 => FoodVoucherProgram) public getFoodVoucherPrograms;
 
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -118,7 +118,7 @@ contract WorldIdGatedVoucher {
             amount: amount
         });
 
-        getFoodVoucherProgram[nextFoodVoucherProgramId] = foodVoucherProgram;
+        getFoodVoucherPrograms[nextFoodVoucherProgramId] = foodVoucherProgram;
         emit FoodVoucherProgramCreated(nextFoodVoucherProgramId, foodVoucherProgram);
 
         ++nextFoodVoucherProgramId;  // This ID's counting is started from 1
@@ -145,7 +145,7 @@ contract WorldIdGatedVoucher {
         //@dev - first, we make sure this person hasn't done this before
         if (nullifierHashes[nullifierHash]) revert InvalidNullifier();
 
-        FoodVoucherProgram memory foodVoucherProgram = getFoodVoucherProgram[foodVoucherProgramId];
+        FoodVoucherProgram memory foodVoucherProgram = getFoodVoucherPrograms[foodVoucherProgramId];
         if (foodVoucherProgramId == 0 || foodVoucherProgramId >= nextFoodVoucherProgramId) revert InvalidFoodVoucherProgram();
 
         //@dev - then, we verify they're registered with WorldID, and the input they've provided is correct
@@ -175,9 +175,9 @@ contract WorldIdGatedVoucher {
     /// @param foodVoucherProgramId The id of the foodVoucherProgram to update
     /// @param foodVoucherProgram The new details for the foodVoucherProgram
     function updateDetails(uint256 foodVoucherProgramId, FoodVoucherProgram calldata foodVoucherProgram) public {
-        if (getFoodVoucherProgram[foodVoucherProgramId].manager != msg.sender) revert Unauthorized();
+        if (getFoodVoucherPrograms[foodVoucherProgramId].manager != msg.sender) revert Unauthorized();
 
-        getFoodVoucherProgram[foodVoucherProgramId] = foodVoucherProgram;
+        getFoodVoucherPrograms[foodVoucherProgramId] = foodVoucherProgram;
 
         emit FoodVoucherProgramUpdated(foodVoucherProgramId, foodVoucherProgram);
     }
