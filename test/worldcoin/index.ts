@@ -76,6 +76,7 @@ describe('Contract', function () {
 
         // extra checks here
     })
+    
     it('Rejects calls with an invalid signal', async function () {
         await registerIdentity()
 
@@ -87,6 +88,7 @@ describe('Contract', function () {
 
         // extra checks here
     })
+
     it('Rejects calls with an invalid proof', async function () {
         await registerIdentity()
 
