@@ -65,8 +65,8 @@ describe('WorldIdGatedVoucher', function () {
         console.log(`Deployed-address of the FoodVoucherNFT.sol: ${ FOOD_VOUCHER_NFT }`)
         await foodVoucherNFT.deployed()
 
-        //@dev - Mint a FoodVoucherNFT (tokenID=1)
-        let tx = await foodVoucherNFT.mintFoodVoucherNFT(user1.address, 1)
+        //@dev - Mint a FoodVoucherNFT (tokenID=0)
+        let tx = await foodVoucherNFT.mintFoodVoucherNFT(user1.address)
 
         //@dev - Assign a caller address
         callerAddr = await signer.getAddress()

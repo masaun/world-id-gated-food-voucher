@@ -121,7 +121,7 @@ contract WorldIdGatedVoucher {
         getFoodVoucherProgram[nextFoodVoucherProgramId] = foodVoucherProgram;
         emit FoodVoucherProgramCreated(nextFoodVoucherProgramId, foodVoucherProgram);
 
-        ++nextFoodVoucherProgramId;
+        ++nextFoodVoucherProgramId;  // This ID's counting is started from 1
     }
 
 
@@ -151,11 +151,9 @@ contract WorldIdGatedVoucher {
         //@dev - then, we verify they're registered with WorldID, and the input they've provided is correct
         worldId.verifyProof(
             root,
-            //groupId, // Test
             foodVoucherProgram.groupId,
             abi.encodePacked(receiver).hashToField(),
             nullifierHash,
-            //abi.encodePacked(address(this)).hashToField(),  // Test
             abi.encodePacked(address(this), foodVoucherProgramId).hashToField(),
             proof
         );
