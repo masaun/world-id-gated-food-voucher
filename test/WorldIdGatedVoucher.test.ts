@@ -47,8 +47,12 @@ describe('WorldIdGatedVoucher', function () {
         signer = signers[0]
         issuer = signers[1]  // issuer who issue FoodVoucherNFT and initially has this NFT
         user1 = signers[2]
+        console.log(`Wallet address of signer: ${ signer.address }`)
+        console.log(`Wallet address of issuer: ${ issuer.address }`)
+        console.log(`Wallet address of user1: ${ user1.address }`)
         
         const worldIDAddress = await setUpWorldID()
+        console.log(`WorldID deployed-address: ${ worldIDAddress }`)
 
         //@dev - Deploy the WorldIdGatedVoucher.sol
         const WorldIdGatedVoucher = await ethers.getContractFactory('WorldIdGatedVoucher')
@@ -103,7 +107,11 @@ describe('WorldIdGatedVoucher', function () {
         await tx2.wait()
 
         //@dev - Extra checks here
-        //console.log(`: ${}`)
+        //const owner = callerAddr
+        const tokenId = 0
+        let owner = await foodVoucherNFT.ownerOf(tokenId)
+        let foodVoucherNFTBalance = await foodVoucherNFT.balanceOf(owner)
+        console.log(`##### FoodVoucherNFT balance of ${ owner }: ${ foodVoucherNFTBalance } #####`)
         //assertEq(token.balanceOf(address(this)), 1 ether);
     })
 
