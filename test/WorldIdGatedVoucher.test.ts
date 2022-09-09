@@ -106,8 +106,18 @@ describe('WorldIdGatedVoucher', function () {
     })
 
     it('Rejects duplicated calls', async function () {
+        //@dev - Create a new FoodVoucherProgram
+        const groupId = 1
+        const token = FOOD_VOUCHER_NFT
+        const holder = signer.address
+        //const holder = user1.address
+        const amount = ethers.utils.parseEther("1")
+        let tx1 = await worldIdGatedVoucher.createFoodVoucherProgram(groupId, token, holder, amount)
+        //let txReceipt = await tx1.wait()
+        //console.log(`txReceipt of worldIdGatedVoucher#createFoodVoucherProgram(): ${ JSON.stringify(txReceipt, null, 2) }`)
+
         //[TODO]: Get foodVoucherProgramId via SC
-        let foodVoucherProgramId = 1
+        let foodVoucherProgramId: number = 1
 
         await registerIdentity()
 
@@ -131,8 +141,18 @@ describe('WorldIdGatedVoucher', function () {
     })
     
     it('Rejects calls from non-members', async function () {
+        //@dev - Create a new FoodVoucherProgram
+        const groupId = 1
+        const token = FOOD_VOUCHER_NFT
+        const holder = signer.address
+        //const holder = user1.address
+        const amount = ethers.utils.parseEther("1")
+        let tx1 = await worldIdGatedVoucher.createFoodVoucherProgram(groupId, token, holder, amount)
+        //let txReceipt = await tx1.wait()
+        //console.log(`txReceipt of worldIdGatedVoucher#createFoodVoucherProgram(): ${ JSON.stringify(txReceipt, null, 2) }`)
+
         //[TODO]: Get foodVoucherProgramId via SC
-        let foodVoucherProgramId = 1
+        let foodVoucherProgramId: number = 1
 
         await registerInvalidIdentity()
 
@@ -146,6 +166,19 @@ describe('WorldIdGatedVoucher', function () {
     })
 
     it('Rejects calls with an invalid signal', async function () {
+        //@dev - Create a new FoodVoucherProgram
+        const groupId = 1
+        const token = FOOD_VOUCHER_NFT
+        const holder = signer.address
+        //const holder = user1.address
+        const amount = ethers.utils.parseEther("1")
+        let tx1 = await worldIdGatedVoucher.createFoodVoucherProgram(groupId, token, holder, amount)
+        //let txReceipt = await tx1.wait()
+        //console.log(`txReceipt of worldIdGatedVoucher#createFoodVoucherProgram(): ${ JSON.stringify(txReceipt, null, 2) }`)
+
+        //[TODO]: Get foodVoucherProgramId via SC
+        let foodVoucherProgramId: number = 1
+        
         await registerIdentity()
 
         const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_VOUCHER, callerAddr)
@@ -158,8 +191,18 @@ describe('WorldIdGatedVoucher', function () {
     })
 
     it('Rejects calls with an invalid proof', async function () {
+        //@dev - Create a new FoodVoucherProgram
+        const groupId = 1
+        const token = FOOD_VOUCHER_NFT
+        const holder = signer.address
+        //const holder = user1.address
+        const amount = ethers.utils.parseEther("1")
+        let tx1 = await worldIdGatedVoucher.createFoodVoucherProgram(groupId, token, holder, amount)
+        //let txReceipt = await tx1.wait()
+        //console.log(`txReceipt of worldIdGatedVoucher#createFoodVoucherProgram(): ${ JSON.stringify(txReceipt, null, 2) }`)
+
         //[TODO]: Get foodVoucherProgramId via SC
-        let foodVoucherProgramId = 1
+        let foodVoucherProgramId: number = 1
 
         await registerIdentity()
 
