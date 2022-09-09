@@ -155,7 +155,7 @@ contract WorldIdGatedVoucher {
             abi.encodePacked(receiver).hashToField(),
             nullifierHash,
             abi.encodePacked(address(this)).hashToField(),  // [Test]: Success
-            //abi.encodePacked(address(this), foodVoucherProgramId).hashToField(), // Fail
+            //abi.encodePacked(address(this), foodVoucherProgramId).hashToField(), // Fail (Reverted with "InvalidProof")
             proof
         );
 
