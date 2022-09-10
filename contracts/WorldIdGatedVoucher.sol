@@ -63,7 +63,8 @@ contract WorldIdGatedVoucher {
         FoodVoucherNFT token;
         address manager;
         address holder;
-        uint256 amount;
+        uint256 tokenId;  //@dev - Token ID of FoodVoucherNFT
+        //uint256 amount;
     }
 
 
@@ -101,21 +102,23 @@ contract WorldIdGatedVoucher {
 
     /// @notice Create a new FoodVoucherProgram
     /// @param groupId The ID of the Semaphore group that will be eligible to claim this FoodVoucherProgram
-    /// @param token The ERC20 token that will be FoodVoucherProgram to eligible participants
-    /// @param holder The address holding the tokens that will be foodVoucherProgramped
-    /// @param amount The amount of tokens that each participant will receive upon claiming
+    /// @param token The FoodVoucherNFT that will be FoodVoucherProgram to eligible participants
+    /// @param holder The address holding the tokens that will be FoodVoucherProgram
+    /// @param tokenId The token ID of FoodVoucherNFT that each participant will receive upon claiming
     function createFoodVoucherProgram(
         uint256 groupId,
         FoodVoucherNFT token,
         address holder,
-        uint256 amount
+        uint256 tokenId
+        //uint256 amount
     ) public {
         FoodVoucherProgram memory foodVoucherProgram = FoodVoucherProgram({
             groupId: groupId,
             token: token,
             manager: msg.sender,
             holder: holder,
-            amount: amount
+            tokenId: tokenId
+            //amount: amount
         });
 
         getFoodVoucherPrograms[nextFoodVoucherProgramId] = foodVoucherProgram;

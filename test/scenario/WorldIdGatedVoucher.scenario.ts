@@ -101,10 +101,9 @@ describe('Scenario test - WorldIdGatedVoucher', function () {
         //@dev - Create a new FoodVoucherProgram
         const groupId = 1
         const token = FOOD_VOUCHER_NFT
-        const holder = issuer.address
-        const amount = 1  //@dev - Quantity of FoodVoucherNFTs
-        //const amount = ethers.utils.parseEther("1")
-        let tx1 = await worldIdGatedVoucher.connect(issuer).createFoodVoucherProgram(groupId, token, holder, amount)
+        const holder = ISSUER
+        const tokenId = 0  //@dev - TokenID of FoodVoucherNFTs
+        let tx1 = await worldIdGatedVoucher.connect(issuer).createFoodVoucherProgram(groupId, token, holder, tokenId)
         //let txReceipt = await tx1.wait()
         //console.log(`txReceipt of worldIdGatedVoucher#createFoodVoucherProgram(): ${ JSON.stringify(txReceipt, null, 2) }`)
 
@@ -116,7 +115,6 @@ describe('Scenario test - WorldIdGatedVoucher', function () {
         const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_VOUCHER, callerAddr)
 
         //@dev - A issuer approve the WorldIdGatedVoucher contract to spend tokenID of FoodVoucherNFT
-        const tokenId = 0  //[TODO]: 
         let tx2 = await foodVoucherNFT.connect(issuer).approve(WORLD_ID_GATED_VOUCHER, tokenId);
 
         const tx3 = await worldIdGatedVoucher.connect(user1).claimFoodVoucher(
