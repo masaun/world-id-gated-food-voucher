@@ -18,6 +18,13 @@ npm run test-unit:WorldIdGatedVoucher
 
 <br>
 
+- Scenario test of the WorldIdGatedVoucher.sol
+```
+npm run test-scenario:WorldIdGatedVoucher
+```
+
+<br>
+
 ### Resources
 - Worldcoin: 
   - World ID:

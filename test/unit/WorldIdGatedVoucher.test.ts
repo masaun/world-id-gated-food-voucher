@@ -9,15 +9,15 @@ import {
     registerIdentity,
     registerInvalidIdentity,
     setUpWorldID,
-} from './worldcoin/helpers/InteractsWithWorldID'
+} from '../worldcoin/helpers/InteractsWithWorldID'
 
-import { WorldIdGatedVoucher, FoodVoucherNFT, FoodVoucherNFTFactory } from "../typechain"
+import { WorldIdGatedVoucher, FoodVoucherNFT, FoodVoucherNFTFactory } from "../../typechain"
 
 
 /**
  * @notice - The unit test of the WorldIdGatedVoucher
  */ 
-describe('WorldIdGatedVoucher', function () {
+describe('Unit test - WorldIdGatedVoucher', function () {
     //@dev - Variables of smart contract instances
     let worldIdGatedVoucher: WorldIdGatedVoucher
     let foodVoucherNFT: FoodVoucherNFT
@@ -115,6 +115,9 @@ describe('WorldIdGatedVoucher', function () {
         await tx2.wait()
 
         //@dev - Extra checks here
+
+
+        //@dev - Check FoodVoucherNFT balance of each wallet addresses
         //const owner = callerAddr
         //const tokenId = 0
         //let owner = await foodVoucherNFT.ownerOf(tokenId)
