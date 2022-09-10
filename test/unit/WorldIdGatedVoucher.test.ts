@@ -17,7 +17,7 @@ import { WorldIdGatedVoucher, FoodVoucherNFT, FoodVoucherNFTFactory } from "../.
 /**
  * @notice - The unit test of the WorldIdGatedVoucher
  */ 
-describe('WorldIdGatedVoucher', function () {
+describe('Unit test - WorldIdGatedVoucher', function () {
     //@dev - Variables of smart contract instances
     let worldIdGatedVoucher: WorldIdGatedVoucher
     let foodVoucherNFT: FoodVoucherNFT
