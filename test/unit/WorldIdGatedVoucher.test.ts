@@ -104,7 +104,11 @@ describe('Unit test - WorldIdGatedVoucher', function () {
 
         const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_VOUCHER, callerAddr)
 
-        const tx2 = await worldIdGatedVoucher.connect(user1).claimFoodVoucher(
+        //@dev - A issuer approve the WorldIdGatedVoucher contract to spend tokenID of FoodVoucherNFT
+        const tokenId = 0  //[TODO]: 
+        let tx2 = await foodVoucherNFT.connect(issuer).approve(WORLD_ID_GATED_VOUCHER, tokenId);
+
+        const tx3 = await worldIdGatedVoucher.connect(user1).claimFoodVoucher(
             foodVoucherProgramId, 
             //WORLD_ID_GATED_VOUCHER, // receiver
             callerAddr,  // receiver
@@ -113,10 +117,9 @@ describe('Unit test - WorldIdGatedVoucher', function () {
             proof
         )
 
-        await tx2.wait()
+        await tx3.wait()
 
         //@dev - Extra checks here
-
 
         //@dev - Check FoodVoucherNFT balance of each wallet addresses
         //const owner = callerAddr
