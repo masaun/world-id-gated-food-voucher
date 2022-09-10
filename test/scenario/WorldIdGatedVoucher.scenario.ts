@@ -34,11 +34,15 @@ describe('Scenario test - WorldIdGatedVoucher', function () {
     let deployer: SignerWithAddress
     let issuer: SignerWithAddress
     let user1: SignerWithAddress
+    let user2: SignerWithAddress
+    let user3: SignerWithAddress
 
     //@dev - Wallet addresses
     let DEPLOYER: string
     let ISSUER: string
     let USER_1: string
+    let USER_2: string
+    let USER_3: string
 
 
     this.beforeAll(async () => {
@@ -51,12 +55,19 @@ describe('Scenario test - WorldIdGatedVoucher', function () {
         deployer = signers[0]
         issuer = signers[1]  // issuer who issue FoodVoucherNFT and initially has this NFT
         user1 = signers[2]
+        user2 = signers[3]
+        user3 = signers[4]
+
         DEPLOYER = deployer.address
         ISSUER = issuer.address
         USER_1 = user1.address
+        USER_2 = user2.address
+        USER_3 = user3.address
         console.log(`Wallet address of deployer: ${ DEPLOYER }`)
         console.log(`Wallet address of issuer: ${ ISSUER }`)
         console.log(`Wallet address of user1: ${ USER_1 }`)
+        console.log(`Wallet address of user2: ${ USER_2 }`)
+        console.log(`Wallet address of user3: ${ USER_3 }`)
         
         const worldIDAddress = await setUpWorldID()
         console.log(`WorldID deployed-address: ${ worldIDAddress }`)
@@ -89,12 +100,18 @@ describe('Scenario test - WorldIdGatedVoucher', function () {
         let foodVoucherNFTBalanceOfDeployer = await foodVoucherNFT.balanceOf(DEPLOYER)
         let foodVoucherNFTBalanceOfIssuer = await foodVoucherNFT.balanceOf(ISSUER)
         let foodVoucherNFTBalanceOfUser1 = await foodVoucherNFT.balanceOf(USER_1)
+        let foodVoucherNFTBalanceOfUser2 = await foodVoucherNFT.balanceOf(USER_2)
+        let foodVoucherNFTBalanceOfUser3 = await foodVoucherNFT.balanceOf(USER_3)
         console.log(`##### FoodVoucherNFT balance of deployer: ${ foodVoucherNFTBalanceOfDeployer } #####`)
         console.log(`##### FoodVoucherNFT balance of issuer: ${ foodVoucherNFTBalanceOfIssuer } #####`)
         console.log(`##### FoodVoucherNFT balance of user1: ${ foodVoucherNFTBalanceOfUser1 } #####`)
+        console.log(`##### FoodVoucherNFT balance of user2: ${ foodVoucherNFTBalanceOfUser2 } #####`)
+        console.log(`##### FoodVoucherNFT balance of user3: ${ foodVoucherNFTBalanceOfUser3 } #####`)
         expect(foodVoucherNFTBalanceOfDeployer).to.equal(0)
         expect(foodVoucherNFTBalanceOfIssuer).to.equal(1)
         expect(foodVoucherNFTBalanceOfUser1).to.equal(0)
+        expect(foodVoucherNFTBalanceOfUser2).to.equal(0)
+        expect(foodVoucherNFTBalanceOfUser3).to.equal(0)
     })
 
     it('createFoodVoucherProgram()', async function () {
@@ -138,11 +155,17 @@ describe('Scenario test - WorldIdGatedVoucher', function () {
         let foodVoucherNFTBalanceOfDeployer = await foodVoucherNFT.balanceOf(DEPLOYER)
         let foodVoucherNFTBalanceOfIssuer = await foodVoucherNFT.balanceOf(ISSUER)
         let foodVoucherNFTBalanceOfUser1 = await foodVoucherNFT.balanceOf(USER_1)
+        let foodVoucherNFTBalanceOfUser2 = await foodVoucherNFT.balanceOf(USER_2)
+        let foodVoucherNFTBalanceOfUser3 = await foodVoucherNFT.balanceOf(USER_3)
         console.log(`##### FoodVoucherNFT balance of deployer: ${ foodVoucherNFTBalanceOfDeployer } #####`)
         console.log(`##### FoodVoucherNFT balance of issuer: ${ foodVoucherNFTBalanceOfIssuer } #####`)
         console.log(`##### FoodVoucherNFT balance of user1: ${ foodVoucherNFTBalanceOfUser1 } #####`)
+        console.log(`##### FoodVoucherNFT balance of user2: ${ foodVoucherNFTBalanceOfUser2 } #####`)
+        console.log(`##### FoodVoucherNFT balance of user3: ${ foodVoucherNFTBalanceOfUser3 } #####`)
         expect(foodVoucherNFTBalanceOfDeployer).to.equal(0)
         expect(foodVoucherNFTBalanceOfIssuer).to.equal(0)
         expect(foodVoucherNFTBalanceOfUser1).to.equal(1)
+        expect(foodVoucherNFTBalanceOfUser2).to.equal(0)
+        expect(foodVoucherNFTBalanceOfUser3).to.equal(0)
     })
 })
