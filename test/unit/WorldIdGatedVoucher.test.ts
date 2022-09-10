@@ -110,8 +110,7 @@ describe('Unit test - WorldIdGatedVoucher', function () {
 
         const tx3 = await worldIdGatedVoucher.connect(user1).claimFoodVoucher(
             foodVoucherProgramId, 
-            //WORLD_ID_GATED_VOUCHER, // receiver
-            callerAddr,  // receiver
+            callerAddr,               // receiver
             await getRoot(),
             nullifierHash,
             proof
@@ -135,7 +134,9 @@ describe('Unit test - WorldIdGatedVoucher', function () {
         console.log(`##### FoodVoucherNFT balance of deployer: ${ foodVoucherNFTBalanceOfDeployer } #####`)
         console.log(`##### FoodVoucherNFT balance of issuer: ${ foodVoucherNFTBalanceOfIssuer } #####`)
         console.log(`##### FoodVoucherNFT balance of user1: ${ foodVoucherNFTBalanceOfUser1 } #####`)
-        //assertEq(token.balanceOf(address(this)), 1 ether);
+        expect(foodVoucherNFTBalanceOfDeployer).to.equal(0)
+        expect(foodVoucherNFTBalanceOfIssuer).to.equal(0)
+        expect(foodVoucherNFTBalanceOfUser1).to.equal(1)
     })
 
     it('Rejects duplicated calls', async function () {
