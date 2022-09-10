@@ -144,15 +144,9 @@ describe('Scenario test - WorldIdGatedVoucher', function () {
         await tx3.wait()
 
         //@dev - Extra checks here
+    })
 
-        //@dev - Check FoodVoucherNFT balance of each wallet addresses
-        //const owner = callerAddr
-        //const tokenId = 0
-        //let owner = await foodVoucherNFT.ownerOf(tokenId)
-        //let foodVoucherNFTBalance = await foodVoucherNFT.balanceOf(owner)
-        //console.log(`##### FoodVoucherNFT balance of ${ owner }: ${ foodVoucherNFTBalance } #####`)
-        //assertEq(token.balanceOf(address(this)), 1 ether);
-
+    it('Check FoodVoucherNFT balance of each wallet addresses after claiming', async function () {
         let foodVoucherNFTBalanceOfDeployer = await foodVoucherNFT.balanceOf(DEPLOYER)
         let foodVoucherNFTBalanceOfIssuer = await foodVoucherNFT.balanceOf(ISSUER)
         let foodVoucherNFTBalanceOfUser1 = await foodVoucherNFT.balanceOf(USER_1)
