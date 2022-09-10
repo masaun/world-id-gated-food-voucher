@@ -85,6 +85,18 @@ describe('Scenario test - WorldIdGatedVoucher', function () {
         console.log(`callerAddr: ${ callerAddr }`)
     })
 
+    it('Check FoodVoucherNFT balance of each wallet addresses before claiming', async function () {
+        let foodVoucherNFTBalanceOfDeployer = await foodVoucherNFT.balanceOf(DEPLOYER)
+        let foodVoucherNFTBalanceOfIssuer = await foodVoucherNFT.balanceOf(ISSUER)
+        let foodVoucherNFTBalanceOfUser1 = await foodVoucherNFT.balanceOf(USER_1)
+        console.log(`##### FoodVoucherNFT balance of deployer: ${ foodVoucherNFTBalanceOfDeployer } #####`)
+        console.log(`##### FoodVoucherNFT balance of issuer: ${ foodVoucherNFTBalanceOfIssuer } #####`)
+        console.log(`##### FoodVoucherNFT balance of user1: ${ foodVoucherNFTBalanceOfUser1 } #####`)
+        expect(foodVoucherNFTBalanceOfDeployer).to.equal(0)
+        expect(foodVoucherNFTBalanceOfIssuer).to.equal(1)
+        expect(foodVoucherNFTBalanceOfUser1).to.equal(0)
+    })
+
     it('createFoodVoucherProgram()', async function () {
         //@dev - Create a new FoodVoucherProgram
         const groupId = 1
