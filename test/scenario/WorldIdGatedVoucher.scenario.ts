@@ -49,7 +49,8 @@ describe('Scenario test - WorldIdGatedVoucher', function () {
         await prepareWorldID()
     })
 
-    beforeEach(async () => {
+    before(async () => {
+    //beforeEach(async () => {
         //[signer] = await ethers.getSigners()
         signers = await ethers.getSigners()
         deployer = signers[0]
