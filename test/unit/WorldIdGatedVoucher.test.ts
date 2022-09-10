@@ -80,8 +80,9 @@ describe('Unit test - WorldIdGatedVoucher', function () {
         //@dev - Mint a FoodVoucherNFT (tokenID=0)
         let tx = await foodVoucherNFT.connect(deployer).mintFoodVoucherNFT(issuer.address)
 
-        //@dev - Assign a caller address
-        callerAddr = await deployer.getAddress()
+        //@dev - Assign a caller address (that is a claimer address)
+        callerAddr = USER_1
+        //callerAddr = await deployer.getAddress()
         console.log(`callerAddr: ${ callerAddr }`)
     })
 
