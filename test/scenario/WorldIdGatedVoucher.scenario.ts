@@ -46,7 +46,6 @@ describe('Scenario test - WorldIdGatedVoucher', function () {
     })
 
     beforeEach(async () => {
-
         //[signer] = await ethers.getSigners()
         signers = await ethers.getSigners()
         deployer = signers[0]
@@ -78,14 +77,63 @@ describe('Scenario test - WorldIdGatedVoucher', function () {
         await foodVoucherNFT.deployed()
 
         //@dev - Mint a FoodVoucherNFT (tokenID=0)
-        let tx = await foodVoucherNFT.mintFoodVoucherNFT(issuer.address)
+        let tx = await foodVoucherNFT.connect(deployer).mintFoodVoucherNFT(issuer.address)
 
-        //@dev - Assign a caller address
-        callerAddr = await deployer.getAddress()
+        //@dev - Assign a caller address (that is a claimer address)
+        callerAddr = USER_1
+        //callerAddr = await deployer.getAddress()
         console.log(`callerAddr: ${ callerAddr }`)
     })
 
-    it('Something Test', async function () {
-        //[TODO]: 
+    it('createFoodVoucherProgram()', async function () {
+        //@dev - Create a new FoodVoucherProgram
+        const groupId = 1
+        const token = FOOD_VOUCHER_NFT
+        const holder = issuer.address
+        const amount = 1  //@dev - Quantity of FoodVoucherNFTs
+        //const amount = ethers.utils.parseEther("1")
+        let tx1 = await worldIdGatedVoucher.connect(issuer).createFoodVoucherProgram(groupId, token, holder, amount)
+        //let txReceipt = await tx1.wait()
+        //console.log(`txReceipt of worldIdGatedVoucher#createFoodVoucherProgram(): ${ JSON.stringify(txReceipt, null, 2) }`)
+
+        //[TODO]: Get foodVoucherProgramId via SC
+        let foodVoucherProgramId: number = 1
+
+        await registerIdentity()
+
+        const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_VOUCHER, callerAddr)
+
+        //@dev - A issuer approve the WorldIdGatedVoucher contract to spend tokenID of FoodVoucherNFT
+        const tokenId = 0  //[TODO]: 
+        let tx2 = await foodVoucherNFT.connect(issuer).approve(WORLD_ID_GATED_VOUCHER, tokenId);
+
+        const tx3 = await worldIdGatedVoucher.connect(user1).claimFoodVoucher(
+            foodVoucherProgramId, 
+            //WORLD_ID_GATED_VOUCHER, // receiver
+            callerAddr,  // receiver
+            await getRoot(),
+            nullifierHash,
+            proof
+        )
+
+        await tx3.wait()
+
+        //@dev - Extra checks here
+
+        //@dev - Check FoodVoucherNFT balance of each wallet addresses
+        //const owner = callerAddr
+        //const tokenId = 0
+        //let owner = await foodVoucherNFT.ownerOf(tokenId)
+        //let foodVoucherNFTBalance = await foodVoucherNFT.balanceOf(owner)
+        //console.log(`##### FoodVoucherNFT balance of ${ owner }: ${ foodVoucherNFTBalance } #####`)
+        //assertEq(token.balanceOf(address(this)), 1 ether);
+
+        let foodVoucherNFTBalanceOfDeployer = await foodVoucherNFT.balanceOf(DEPLOYER)
+        let foodVoucherNFTBalanceOfIssuer = await foodVoucherNFT.balanceOf(ISSUER)
+        let foodVoucherNFTBalanceOfUser1 = await foodVoucherNFT.balanceOf(USER_1)
+        console.log(`##### FoodVoucherNFT balance of deployer: ${ foodVoucherNFTBalanceOfDeployer } #####`)
+        console.log(`##### FoodVoucherNFT balance of issuer: ${ foodVoucherNFTBalanceOfIssuer } #####`)
+        console.log(`##### FoodVoucherNFT balance of user1: ${ foodVoucherNFTBalanceOfUser1 } #####`)
+        //assertEq(token.balanceOf(address(this)), 1 ether);
     })
 })
