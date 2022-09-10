@@ -87,14 +87,12 @@ describe('Scenario test - WorldIdGatedVoucher', function () {
         FOOD_VOUCHER_NFT = foodVoucherNFT.address
         console.log(`Deployed-address of the FoodVoucherNFT.sol: ${ FOOD_VOUCHER_NFT }`)
         await foodVoucherNFT.deployed()
+    })
 
-        //@dev - Mint a FoodVoucherNFT (tokenID=0)
-        let tx = await foodVoucherNFT.connect(deployer).mintFoodVoucherNFT(issuer.address)
-
-        //@dev - Assign a caller address (that is a claimer address)
-        callerAddr = USER_1
-        //callerAddr = await deployer.getAddress()
-        console.log(`callerAddr: ${ callerAddr }`)
+    it('Mint a FoodVoucherNFT (tokenID=0, 1, 2) to issuer', async function () {
+        let tx1 = await foodVoucherNFT.connect(deployer).mintFoodVoucherNFT(ISSUER)
+        let tx2 = await foodVoucherNFT.connect(deployer).mintFoodVoucherNFT(ISSUER)
+        let tx3 = await foodVoucherNFT.connect(deployer).mintFoodVoucherNFT(ISSUER)
     })
 
     it('Check FoodVoucherNFT balance of each wallet addresses before claiming', async function () {
@@ -109,25 +107,105 @@ describe('Scenario test - WorldIdGatedVoucher', function () {
         console.log(`##### FoodVoucherNFT balance of user2: ${ foodVoucherNFTBalanceOfUser2 } #####`)
         console.log(`##### FoodVoucherNFT balance of user3: ${ foodVoucherNFTBalanceOfUser3 } #####`)
         expect(foodVoucherNFTBalanceOfDeployer).to.equal(0)
-        expect(foodVoucherNFTBalanceOfIssuer).to.equal(1)
+        expect(foodVoucherNFTBalanceOfIssuer).to.equal(3)
         expect(foodVoucherNFTBalanceOfUser1).to.equal(0)
         expect(foodVoucherNFTBalanceOfUser2).to.equal(0)
         expect(foodVoucherNFTBalanceOfUser3).to.equal(0)
     })
 
-    it('createFoodVoucherProgram()', async function () {
+    it('createFoodVoucherProgram() - An issuer create a FoodVoucherProgram / Then, claimFoodVoucher() - User1 claim a FoodVoucherNFT', async function () {
+        //@dev - User1 is assigned as a caller address (that is also a claimer address)
+        callerAddr = USER_1
+        console.log(`callerAddr: ${ callerAddr }`)
+
         //@dev - Create a new FoodVoucherProgram
         const groupId = 1
         const token = FOOD_VOUCHER_NFT
         const holder = ISSUER
-        const tokenId = 0  //@dev - TokenID of FoodVoucherNFTs
+        const tokenId: number = 0  //@dev - TokenID of FoodVoucherNFTs
         let tx1 = await worldIdGatedVoucher.connect(issuer).createFoodVoucherProgram(groupId, token, holder, tokenId)
 
         //[TODO]: Get foodVoucherProgramId via SC
         let foodVoucherProgramId: number = 1
 
+        //@dev - WorldId.addMember()
         await registerIdentity()
 
+        //@dev - get proof
+        const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_VOUCHER, callerAddr)
+
+        //@dev - A issuer approve the WorldIdGatedVoucher contract to spend tokenID of FoodVoucherNFT
+        let tx2 = await foodVoucherNFT.connect(issuer).approve(WORLD_ID_GATED_VOUCHER, tokenId);
+
+        const tx3 = await worldIdGatedVoucher.connect(user1).claimFoodVoucher(
+            foodVoucherProgramId, 
+            callerAddr,  // receiver
+            await getRoot(),
+            nullifierHash,
+            proof
+        )
+
+        await tx3.wait()
+
+        //@dev - Extra checks here
+    })
+
+    it('createFoodVoucherProgram() - An issuer create a FoodVoucherProgram / Then, claimFoodVoucher() - User2 claim a FoodVoucherNFT', async function () {
+        //@dev - User2 is assigned as a caller address (that is also a claimer address)
+        callerAddr = USER_2
+        console.log(`callerAddr: ${ callerAddr }`)
+
+        //@dev - Create a new FoodVoucherProgram
+        const groupId = 2
+        const token = FOOD_VOUCHER_NFT
+        const holder = ISSUER
+        const tokenId: number = 1  //@dev - TokenID of FoodVoucherNFTs
+        let tx1 = await worldIdGatedVoucher.connect(issuer).createFoodVoucherProgram(groupId, token, holder, tokenId)
+
+        //[TODO]: Get foodVoucherProgramId via SC
+        let foodVoucherProgramId: number = 1
+
+        //@dev - WorldId.addMember()
+        await registerIdentity()
+
+        //@dev - get proof
+        const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_VOUCHER, callerAddr)
+
+        //@dev - A issuer approve the WorldIdGatedVoucher contract to spend tokenID of FoodVoucherNFT
+        let tx2 = await foodVoucherNFT.connect(issuer).approve(WORLD_ID_GATED_VOUCHER, tokenId);
+
+        const tx3 = await worldIdGatedVoucher.connect(user1).claimFoodVoucher(
+            foodVoucherProgramId, 
+            callerAddr,  // receiver
+            await getRoot(),
+            nullifierHash,
+            proof
+        )
+
+        await tx3.wait()
+
+        //@dev - Extra checks here
+    })
+
+    it('createFoodVoucherProgram() - An issuer create a FoodVoucherProgram / Then, claimFoodVoucher() - User3 claim a FoodVoucherNFT', async function () {
+        //@dev - User2 is assigned as a caller address (that is also a claimer address)
+        callerAddr = USER_3
+        console.log(`callerAddr: ${ callerAddr }`)
+
+        //@dev - Create a new FoodVoucherProgram
+        const groupId = 3
+        const token = FOOD_VOUCHER_NFT
+        const holder = ISSUER
+        const tokenId: number = 2  //@dev - TokenID of FoodVoucherNFTs
+        let tx1 = await worldIdGatedVoucher.connect(issuer).createFoodVoucherProgram(groupId, token, holder, tokenId)
+
+        //[TODO]: Get foodVoucherProgramId via SC
+        let foodVoucherProgramId: number = 1
+
+        //@dev - WorldId.addMember()
+        await registerIdentity()
+
+        //@dev - get proof
         const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_VOUCHER, callerAddr)
 
         //@dev - A issuer approve the WorldIdGatedVoucher contract to spend tokenID of FoodVoucherNFT
