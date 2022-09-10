@@ -35,6 +35,11 @@ describe('WorldIdGatedVoucher', function () {
     let issuer: SignerWithAddress
     let user1: SignerWithAddress
 
+    //@dev - Wallet addresses
+    let DEPLOYER: string
+    let ISSUER: string
+    let USER_1: string
+
 
     this.beforeAll(async () => {
         await prepareWorldID()
@@ -47,9 +52,12 @@ describe('WorldIdGatedVoucher', function () {
         deployer = signers[0]
         issuer = signers[1]  // issuer who issue FoodVoucherNFT and initially has this NFT
         user1 = signers[2]
-        console.log(`Wallet address of deployer: ${ deployer.address }`)
-        console.log(`Wallet address of issuer: ${ issuer.address }`)
-        console.log(`Wallet address of user1: ${ user1.address }`)
+        DEPLOYER = deployer.address
+        ISSUER = issuer.address
+        USER_1 = user1.address
+        console.log(`Wallet address of deployer: ${ DEPLOYER }`)
+        console.log(`Wallet address of issuer: ${ ISSUER }`)
+        console.log(`Wallet address of user1: ${ USER_1 }`)
         
         const worldIDAddress = await setUpWorldID()
         console.log(`WorldID deployed-address: ${ worldIDAddress }`)
@@ -108,10 +116,18 @@ describe('WorldIdGatedVoucher', function () {
 
         //@dev - Extra checks here
         //const owner = callerAddr
-        const tokenId = 0
-        let owner = await foodVoucherNFT.ownerOf(tokenId)
-        let foodVoucherNFTBalance = await foodVoucherNFT.balanceOf(owner)
-        console.log(`##### FoodVoucherNFT balance of ${ owner }: ${ foodVoucherNFTBalance } #####`)
+        //const tokenId = 0
+        //let owner = await foodVoucherNFT.ownerOf(tokenId)
+        //let foodVoucherNFTBalance = await foodVoucherNFT.balanceOf(owner)
+        //console.log(`##### FoodVoucherNFT balance of ${ owner }: ${ foodVoucherNFTBalance } #####`)
+        //assertEq(token.balanceOf(address(this)), 1 ether);
+
+        let foodVoucherNFTBalanceOfDeployer = await foodVoucherNFT.balanceOf(DEPLOYER)
+        let foodVoucherNFTBalanceOfIssuer = await foodVoucherNFT.balanceOf(ISSUER)
+        let foodVoucherNFTBalanceOfUser1 = await foodVoucherNFT.balanceOf(USER_1)
+        console.log(`##### FoodVoucherNFT balance of deployer: ${ foodVoucherNFTBalanceOfDeployer } #####`)
+        console.log(`##### FoodVoucherNFT balance of issuer: ${ foodVoucherNFTBalanceOfIssuer } #####`)
+        console.log(`##### FoodVoucherNFT balance of user1: ${ foodVoucherNFTBalanceOfUser1 } #####`)
         //assertEq(token.balanceOf(address(this)), 1 ether);
     })
 
