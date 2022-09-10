@@ -78,7 +78,7 @@ describe('Unit test - WorldIdGatedVoucher', function () {
         await foodVoucherNFT.deployed()
 
         //@dev - Mint a FoodVoucherNFT (tokenID=0)
-        let tx = await foodVoucherNFT.mintFoodVoucherNFT(issuer.address)
+        let tx = await foodVoucherNFT.connect(deployer).mintFoodVoucherNFT(issuer.address)
 
         //@dev - Assign a caller address
         callerAddr = await deployer.getAddress()
@@ -92,7 +92,7 @@ describe('Unit test - WorldIdGatedVoucher', function () {
         const holder = issuer.address
         const amount = 1  //@dev - Quantity of FoodVoucherNFTs
         //const amount = ethers.utils.parseEther("1")
-        let tx1 = await worldIdGatedVoucher.createFoodVoucherProgram(groupId, token, holder, amount)
+        let tx1 = await worldIdGatedVoucher.connect(issuer).createFoodVoucherProgram(groupId, token, holder, amount)
         //let txReceipt = await tx1.wait()
         //console.log(`txReceipt of worldIdGatedVoucher#createFoodVoucherProgram(): ${ JSON.stringify(txReceipt, null, 2) }`)
 
@@ -103,7 +103,7 @@ describe('Unit test - WorldIdGatedVoucher', function () {
 
         const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_VOUCHER, callerAddr)
 
-        const tx2 = await worldIdGatedVoucher.claimFoodVoucher(
+        const tx2 = await worldIdGatedVoucher.connect(user1).claimFoodVoucher(
             foodVoucherProgramId, 
             //WORLD_ID_GATED_VOUCHER, // receiver
             callerAddr,  // receiver
