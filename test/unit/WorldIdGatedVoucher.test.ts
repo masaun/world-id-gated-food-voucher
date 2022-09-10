@@ -166,15 +166,18 @@ describe('Unit test - WorldIdGatedVoucher', function () {
 
         const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_VOUCHER, callerAddr)
 
-        const tx2 = await worldIdGatedVoucher.claimFoodVoucher(
+        //@dev - A issuer approve the WorldIdGatedVoucher contract to spend tokenID of FoodVoucherNFT
+        let tx2 = await foodVoucherNFT.connect(issuer).approve(WORLD_ID_GATED_VOUCHER, tokenId);
+
+        const tx3 = await worldIdGatedVoucher.connect(user1).claimFoodVoucher(
             foodVoucherProgramId, 
-            callerAddr,  // receiver
+            callerAddr,               // receiver
             await getRoot(),
             nullifierHash,
             proof
         )
 
-        await tx2.wait()
+        await tx3.wait()
 
         await expect(
             worldIdGatedVoucher.claimFoodVoucher(foodVoucherProgramId, callerAddr, await getRoot(), nullifierHash, proof)
