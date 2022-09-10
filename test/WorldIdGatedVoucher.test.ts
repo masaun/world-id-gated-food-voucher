@@ -31,7 +31,7 @@ describe('WorldIdGatedVoucher', function () {
 
     //@dev - Signers
     let signers: SignerWithAddress[]
-    let signer: SignerWithAddress
+    let deployer: SignerWithAddress
     let issuer: SignerWithAddress
     let user1: SignerWithAddress
 
@@ -44,10 +44,10 @@ describe('WorldIdGatedVoucher', function () {
 
         //[signer] = await ethers.getSigners()
         signers = await ethers.getSigners()
-        signer = signers[0]
+        deployer = signers[0]
         issuer = signers[1]  // issuer who issue FoodVoucherNFT and initially has this NFT
         user1 = signers[2]
-        console.log(`Wallet address of signer: ${ signer.address }`)
+        console.log(`Wallet address of deployer: ${ deployer.address }`)
         console.log(`Wallet address of issuer: ${ issuer.address }`)
         console.log(`Wallet address of user1: ${ user1.address }`)
         
@@ -73,7 +73,7 @@ describe('WorldIdGatedVoucher', function () {
         let tx = await foodVoucherNFT.mintFoodVoucherNFT(issuer.address)
 
         //@dev - Assign a caller address
-        callerAddr = await signer.getAddress()
+        callerAddr = await deployer.getAddress()
         console.log(`callerAddr: ${ callerAddr }`)
     })
 
