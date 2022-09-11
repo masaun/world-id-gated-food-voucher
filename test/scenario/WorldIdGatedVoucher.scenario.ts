@@ -82,7 +82,7 @@ describe('Scenario test - WorldIdGatedVoucher', function () {
         let tx1 = await foodVoucherNFT.connect(deployer).mintFoodVoucherNFT(ISSUER)
     })
 
-    it('Check FoodVoucherNFT balance of each wallet addresses before claiming', async function () {
+    it('Check FoodVoucherNFT balance of each wallet addresses before claiming - Issuer should be has a FoodVoucherNFT', async function () {
         let foodVoucherNFTBalanceOfDeployer = await foodVoucherNFT.balanceOf(DEPLOYER)
         let foodVoucherNFTBalanceOfIssuer = await foodVoucherNFT.balanceOf(ISSUER)
         let foodVoucherNFTBalanceOfUser1 = await foodVoucherNFT.balanceOf(USER_1)
@@ -132,7 +132,7 @@ describe('Scenario test - WorldIdGatedVoucher', function () {
         //@dev - Extra checks here
     })
 
-    it('Check FoodVoucherNFT balance of each wallet addresses after claiming', async function () {
+    it('Check FoodVoucherNFT balance of each wallet addresses after claiming - User1 should be has a FoodVoucherNFT', async function () {
         let foodVoucherNFTBalanceOfDeployer = await foodVoucherNFT.balanceOf(DEPLOYER)
         let foodVoucherNFTBalanceOfIssuer = await foodVoucherNFT.balanceOf(ISSUER)
         let foodVoucherNFTBalanceOfUser1 = await foodVoucherNFT.balanceOf(USER_1)
