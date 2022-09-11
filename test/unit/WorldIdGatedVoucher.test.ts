@@ -11,7 +11,13 @@ import {
     setUpWorldID,
 } from '../worldcoin/helpers/InteractsWithWorldID'
 
+//@dev - Smart contract instances
 import { WorldIdGatedVoucher, FoodVoucherNFT, FoodVoucherNFTFactory } from "../../typechain"
+
+//@dev - Helper of ethers.js for retrieving eventLogs emitted, etc.
+import { getEventLog } from "../ethersjs-helper/ethersjsHelper"
+import { toWei } from "../ethersjs-helper/ethersjsHelper"
+import { fromWei } from "../ethersjs-helper/ethersjsHelper"
 
 
 /**
