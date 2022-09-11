@@ -3,6 +3,8 @@ pragma solidity ^0.8.13;
 
 import { FoodVoucherNFT } from "../FoodVoucherNFT.sol";
 
+import { DataTypes } from '../libraries/DataTypes.sol';
+
 
 /**
  * @title - The interface of WorldID-Gated Voucher contract
@@ -30,7 +32,7 @@ interface IWorldIdGatedVoucher {
     /// @notice Emitted when an FoodVoucherProgram is created
     /// @param foodVoucherProgramId The id of the foodVoucherProgram
     /// @param foodVoucherProgram The foodVoucherProgram details
-    event FoodVoucherProgramCreated(uint256 foodVoucherProgramId, FoodVoucherProgram foodVoucherProgram);
+    event FoodVoucherProgramCreated(uint256 foodVoucherProgramId, DataTypes.FoodVoucherProgram foodVoucherProgram);
 
     /// @notice Emitted when an foodVoucherProgram is successfully claimed
     /// @param receiver The address that received the foodVoucherProgram
@@ -39,27 +41,27 @@ interface IWorldIdGatedVoucher {
     /// @notice Emitted when the foodVoucherProgramped amount is changed
     /// @param foodVoucherProgramId The id of the foodVoucherProgram getting updated
     /// @param foodVoucherProgram The new details for the foodVoucherProgram
-    event FoodVoucherProgramUpdated(uint256 indexed foodVoucherProgramId, FoodVoucherProgram foodVoucherProgram);
+    event FoodVoucherProgramUpdated(uint256 indexed foodVoucherProgramId, DataTypes.FoodVoucherProgram foodVoucherProgram);
 
 
     ///////////////////////////////////////////////////////////////////////////////
     ///                                 STRUCTS                                ///
     //////////////////////////////////////////////////////////////////////////////
 
-    /// @notice Stores the details for a specific foodVoucherProgram
-    /// @param groupId The ID of the Semaphore group that will be eligible to claim this foodVoucherProgram
-    /// @param token The ERC20 token that will be foodVoucherProgramped to eligible participants
-    /// @param manager The address that manages this foodVoucherProgram, which is allowed to update the foodVoucherProgram details.
-    /// @param holder The address holding the tokens that will be foodVoucherProgramped
-    /// @param amount The amount of tokens that each participant will receive upon claiming
-    struct FoodVoucherProgram {
-        uint256 groupId;
-        FoodVoucherNFT token;
-        address manager;
-        address holder;
-        uint256 tokenId;  //@dev - Token ID of FoodVoucherNFT
-        //uint256 amount;
-    }
+    // /// @notice Stores the details for a specific foodVoucherProgram
+    // /// @param groupId The ID of the Semaphore group that will be eligible to claim this foodVoucherProgram
+    // /// @param token The ERC20 token that will be foodVoucherProgramped to eligible participants
+    // /// @param manager The address that manages this foodVoucherProgram, which is allowed to update the foodVoucherProgram details.
+    // /// @param holder The address holding the tokens that will be foodVoucherProgramped
+    // /// @param amount The amount of tokens that each participant will receive upon claiming
+    // struct FoodVoucherProgram {
+    //     uint256 groupId;
+    //     FoodVoucherNFT token;
+    //     address manager;
+    //     address holder;
+    //     uint256 tokenId;  //@dev - Token ID of FoodVoucherNFT
+    //     //uint256 amount;
+    // }
 
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -106,6 +108,6 @@ interface IWorldIdGatedVoucher {
     /// @notice Update the details for a given foodVoucherProgram, for addresses that haven't claimed already. Can only be called by the foodVoucherProgram creator
     /// @param foodVoucherProgramId The id of the foodVoucherProgram to update
     /// @param foodVoucherProgram The new details for the foodVoucherProgram
-    function updateDetails(uint256 foodVoucherProgramId, FoodVoucherProgram calldata foodVoucherProgram) external;
+    function updateDetails(uint256 foodVoucherProgramId, DataTypes.FoodVoucherProgram calldata foodVoucherProgram) external;
 
 }

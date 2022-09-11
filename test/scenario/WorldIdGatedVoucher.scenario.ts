@@ -27,7 +27,7 @@ describe('Scenario test - WorldIdGatedVoucher', function () {
     //@dev - Variables of smart contract instances
     let worldIdGatedVoucher: WorldIdGatedVoucher
     let foodVoucherNFT: FoodVoucherNFT
-
+    
     //@dev - Variables of smart contract addresses
     let WORLD_ID_GATED_VOUCHER: string
     let FOOD_VOUCHER_NFT: string
