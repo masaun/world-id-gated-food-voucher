@@ -10,6 +10,10 @@ import { FoodVoucherNFT } from "./FoodVoucherNFT.sol";
 
 import { IWorldIdGatedVoucher } from "./interfaces/IWorldIdGatedVoucher.sol";
 
+import { DataTypes } from './libraries/DataTypes.sol';
+import { Events } from './libraries/Events.sol';
+import { Errors } from './libraries/Errors.sol';
+
 
 /**
  * @title - World ID gated Voucher contract
@@ -84,7 +88,7 @@ contract WorldIdGatedVoucher is IWorldIdGatedVoucher {
     mapping(uint256 => bool) internal nullifierHashes;
 
     uint256 internal nextFoodVoucherProgramId = 1;
-    mapping(uint256 => FoodVoucherProgram) public getFoodVoucherPrograms;
+    mapping(uint256 => DataTypes.FoodVoucherProgram) public getFoodVoucherPrograms;
 
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -114,7 +118,7 @@ contract WorldIdGatedVoucher is IWorldIdGatedVoucher {
         uint256 tokenId
         //uint256 amount
     ) public override {
-        FoodVoucherProgram memory foodVoucherProgram = FoodVoucherProgram({
+        DataTypes.FoodVoucherProgram memory foodVoucherProgram = DataTypes.FoodVoucherProgram({
             groupId: groupId,
             token: token,
             manager: msg.sender,
@@ -124,7 +128,7 @@ contract WorldIdGatedVoucher is IWorldIdGatedVoucher {
         });
 
         getFoodVoucherPrograms[nextFoodVoucherProgramId] = foodVoucherProgram;
-        emit FoodVoucherProgramCreated(nextFoodVoucherProgramId, foodVoucherProgram);
+        emit Events.FoodVoucherProgramCreated(nextFoodVoucherProgramId, foodVoucherProgram);
 
         ++nextFoodVoucherProgramId;  // This ID's counting is started from 1
     }
@@ -148,10 +152,10 @@ contract WorldIdGatedVoucher is IWorldIdGatedVoucher {
         uint256[8] calldata proof
     ) public override {
         //@dev - first, we make sure this person hasn't done this before
-        if (nullifierHashes[nullifierHash]) revert InvalidNullifier();
+        if (nullifierHashes[nullifierHash]) revert Errors.InvalidNullifier();
 
-        FoodVoucherProgram memory foodVoucherProgram = getFoodVoucherPrograms[foodVoucherProgramId];
-        if (foodVoucherProgramId == 0 || foodVoucherProgramId >= nextFoodVoucherProgramId) revert InvalidFoodVoucherProgram();
+        DataTypes.FoodVoucherProgram memory foodVoucherProgram = getFoodVoucherPrograms[foodVoucherProgramId];
+        if (foodVoucherProgramId == 0 || foodVoucherProgramId >= nextFoodVoucherProgramId) revert Errors.InvalidFoodVoucherProgram();
 
         //@dev - then, we verify they're registered with WorldID, and the input they've provided is correct
         worldId.verifyProof(
@@ -166,7 +170,7 @@ contract WorldIdGatedVoucher is IWorldIdGatedVoucher {
 
         // finally, we record they've done this, so they can't do it again (proof of uniqueness)
         nullifierHashes[nullifierHash] = true;
-        emit FoodVoucherProgramClaimed(foodVoucherProgramId, receiver);
+        emit Events.FoodVoucherProgramClaimed(foodVoucherProgramId, receiver);
 
         //[TODO]: your logic here, make sure to emit some kind of event afterwards!
         uint256 tokenId = 0; //[TODO]: Replace
@@ -183,12 +187,12 @@ contract WorldIdGatedVoucher is IWorldIdGatedVoucher {
     /// @notice Update the details for a given foodVoucherProgram, for addresses that haven't claimed already. Can only be called by the foodVoucherProgram creator
     /// @param foodVoucherProgramId The id of the foodVoucherProgram to update
     /// @param foodVoucherProgram The new details for the foodVoucherProgram
-    function updateDetails(uint256 foodVoucherProgramId, FoodVoucherProgram calldata foodVoucherProgram) public override {
-        if (getFoodVoucherPrograms[foodVoucherProgramId].manager != msg.sender) revert Unauthorized();
+    function updateDetails(uint256 foodVoucherProgramId, DataTypes.FoodVoucherProgram calldata foodVoucherProgram) public override {
+        if (getFoodVoucherPrograms[foodVoucherProgramId].manager != msg.sender) revert Errors.Unauthorized();
 
         getFoodVoucherPrograms[foodVoucherProgramId] = foodVoucherProgram;
 
-        emit FoodVoucherProgramUpdated(foodVoucherProgramId, foodVoucherProgram);
+        emit Events.FoodVoucherProgramUpdated(foodVoucherProgramId, foodVoucherProgram);
     }
 
 }
