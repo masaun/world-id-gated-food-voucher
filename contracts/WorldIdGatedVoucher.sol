@@ -100,10 +100,12 @@ contract WorldIdGatedVoucher is IWorldIdGatedVoucher {
         uint256[8] calldata proof
     ) public override {
         //@dev - first, we make sure this person hasn't done this before
-        if (nullifierHashes[nullifierHash]) revert Errors.InvalidNullifier();
+        if (nullifierHashes[nullifierHash]) revert InvalidNullifier();
+        //if (nullifierHashes[nullifierHash]) revert Errors.InvalidNullifier();
 
         DataTypes.FoodVoucherProgram memory foodVoucherProgram = getFoodVoucherPrograms[foodVoucherProgramId];
         if (foodVoucherProgramId == 0 || foodVoucherProgramId >= nextFoodVoucherProgramId) revert Errors.InvalidFoodVoucherProgram();
+        //if (foodVoucherProgramId == 0 || foodVoucherProgramId >= nextFoodVoucherProgramId) revert InvalidFoodVoucherProgram();
 
         //@dev - then, we verify they're registered with WorldID, and the input they've provided is correct
         worldId.verifyProof(
@@ -136,7 +138,8 @@ contract WorldIdGatedVoucher is IWorldIdGatedVoucher {
     /// @param foodVoucherProgramId The id of the foodVoucherProgram to update
     /// @param foodVoucherProgram The new details for the foodVoucherProgram
     function updateDetails(uint256 foodVoucherProgramId, DataTypes.FoodVoucherProgram calldata foodVoucherProgram) public override {
-        if (getFoodVoucherPrograms[foodVoucherProgramId].manager != msg.sender) revert Errors.Unauthorized();
+        if (getFoodVoucherPrograms[foodVoucherProgramId].manager != msg.sender) revert Unauthorized();
+        //if (getFoodVoucherPrograms[foodVoucherProgramId].manager != msg.sender) revert Errors.Unauthorized();
 
         getFoodVoucherPrograms[foodVoucherProgramId] = foodVoucherProgram;
 
