@@ -10,6 +10,12 @@
 
 <br>
 
+### Diagram of workflow
+- Diagram of entire workflow of this smart contract
+  ![diagram_World ID-gated-Food-Voucher-for-refugees](https://user-images.githubusercontent.com/19357502/189624370-ff52ef8e-9284-4841-9e74-c18bc650ffda.jpeg)
+
+<br>
+
 ### Specifications
 - This smart contract is a extended-contract of the World ID Starter Kit (Hardhat version): https://github.com/worldcoin/world-id-starter-hardhat
 
