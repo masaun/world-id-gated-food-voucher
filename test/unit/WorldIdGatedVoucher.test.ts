@@ -196,7 +196,7 @@ describe('Unit test - WorldIdGatedVoucher', function () {
         //@dev - Create a new FoodVoucherProgram
         const groupId = 1
         const token = FOOD_VOUCHER_NFT
-        const holder = issuer.address
+        const holder = ISSUER
         const tokenId = 0  //@dev - TokenID of FoodVoucherNFTs
         let tx1 = await worldIdGatedVoucher.connect(issuer).createFoodVoucherProgram(groupId, token, holder, tokenId)
         //let txReceipt = await tx1.wait()
@@ -219,7 +219,7 @@ describe('Unit test - WorldIdGatedVoucher', function () {
         //@dev - Create a new FoodVoucherProgram
         const groupId = 1
         const token = FOOD_VOUCHER_NFT
-        const holder = issuer.address
+        const holder = ISSUER
         const tokenId = 0  //@dev - TokenID of FoodVoucherNFTs
         let tx1 = await worldIdGatedVoucher.connect(issuer).createFoodVoucherProgram(groupId, token, holder, tokenId)
         //let txReceipt = await tx1.wait()
@@ -242,7 +242,7 @@ describe('Unit test - WorldIdGatedVoucher', function () {
         //@dev - Create a new FoodVoucherProgram
         const groupId = 1
         const token = FOOD_VOUCHER_NFT
-        const holder = issuer.address
+        const holder = ISSUER
         const tokenId = 0  //@dev - TokenID of FoodVoucherNFTs
         let tx1 = await worldIdGatedVoucher.connect(issuer).createFoodVoucherProgram(groupId, token, holder, tokenId)
         //let txReceipt = await tx1.wait()
