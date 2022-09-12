@@ -10,6 +10,11 @@
 
 <br>
 
+### Specifications
+- This smart contract is a extended-contract of the World ID Starter Kit (Hardhat version): https://github.com/worldcoin/world-id-starter-hardhat
+
+<br>
+
 ### Test
 - Unit test of the WorldIdGatedVoucher.sol
 ```
