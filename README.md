@@ -1,12 +1,13 @@
 ## World ID-gated Food Voucher🎫🆔 for refugees who live in African countries 🌍
 ### Overview
-- There are still issues that refugees could not access foods easily.
+- Essencially, it's difficult for refugees to show their identity. 
+  - Therefore, it has been hard for organizations (such as NPOs, NGOs, etc) to distribute foods into refugees. As a result, there are still issues that refugees could not access foods easily and securely.
   - In case of refugees in africa such as refugees who live in Eastern Africa are suffering food crisis due to COVID-19 pandemic.
     https://www.wfp.org/news/food-rations-cut-refugees-eastern-africa-coronavirus-stretches-resources
 
 <br>
 
-- This is a smart contract that support refugees to be able to access (purchase) essential foods more efficiently and securely in order to reduce hunger by utilizing `World ID-gated voucher` .
+- This smart contract makes checking identity of refugees easier and more secure. As a result, refugees can access essential foods more efficiently and securely in order to reduce hunger by utilizing `World ID-gated voucher` .
 
 <br>
 
