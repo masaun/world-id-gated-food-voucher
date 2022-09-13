@@ -16,7 +16,7 @@ import { Errors } from './libraries/Errors.sol';
 
 
 /**
- * @title - World ID gated Voucher contract
+ * @title - World ID gated voucher contract
  */ 
 contract WorldIdGatedVoucher is IWorldIdGatedVoucher {
     using ByteHasher for bytes;
