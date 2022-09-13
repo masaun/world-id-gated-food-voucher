@@ -39,12 +39,12 @@ describe('Unit test - WorldIdGatedVoucher', function () {
     let signers: SignerWithAddress[]
     let deployer: SignerWithAddress
     let issuer: SignerWithAddress
-    let user1: SignerWithAddress
+    let refugee: SignerWithAddress
 
     //@dev - Wallet addresses
     let DEPLOYER: string
     let ISSUER: string
-    let USER_1: string
+    let REFUGEE: string
 
 
     this.beforeAll(async () => {
@@ -57,13 +57,13 @@ describe('Unit test - WorldIdGatedVoucher', function () {
         signers = await ethers.getSigners()
         deployer = signers[0]
         issuer = signers[1]  // issuer who issue FoodVoucherNFT and initially has this NFT
-        user1 = signers[2]
+        refugee = signers[2]
         DEPLOYER = deployer.address
         ISSUER = issuer.address
-        USER_1 = user1.address
+        REFUGEE = refugee.address
         console.log(`Wallet address of deployer: ${ DEPLOYER }`)
         console.log(`Wallet address of issuer: ${ ISSUER }`)
-        console.log(`Wallet address of user1: ${ USER_1 }`)
+        console.log(`Wallet address of refugee: ${ REFUGEE }`)
         
         const worldIDAddress = await setUpWorldID()
         console.log(`WorldID deployed-address: ${ worldIDAddress }`)
@@ -87,7 +87,7 @@ describe('Unit test - WorldIdGatedVoucher', function () {
         let tx = await foodVoucherNFT.connect(deployer).mintFoodVoucherNFT(issuer.address)
 
         //@dev - Assign a caller address (that is a claimer address)
-        callerAddr = USER_1
+        callerAddr = REFUGEE
         //callerAddr = await deployer.getAddress()
         console.log(`callerAddr: ${ callerAddr }`)
     })
@@ -95,13 +95,13 @@ describe('Unit test - WorldIdGatedVoucher', function () {
     it('Check FoodVoucherNFT balance of each wallet addresses before claiming', async function () {
         let foodVoucherNFTBalanceOfDeployer = await foodVoucherNFT.balanceOf(DEPLOYER)
         let foodVoucherNFTBalanceOfIssuer = await foodVoucherNFT.balanceOf(ISSUER)
-        let foodVoucherNFTBalanceOfUser1 = await foodVoucherNFT.balanceOf(USER_1)
+        let foodVoucherNFTBalanceOfrefugee = await foodVoucherNFT.balanceOf(REFUGEE)
         console.log(`##### FoodVoucherNFT balance of deployer: ${ foodVoucherNFTBalanceOfDeployer } #####`)
         console.log(`##### FoodVoucherNFT balance of issuer: ${ foodVoucherNFTBalanceOfIssuer } #####`)
-        console.log(`##### FoodVoucherNFT balance of user1: ${ foodVoucherNFTBalanceOfUser1 } #####`)
+        console.log(`##### FoodVoucherNFT balance of refugee: ${ foodVoucherNFTBalanceOfrefugee } #####`)
         expect(foodVoucherNFTBalanceOfDeployer).to.equal(0)
         expect(foodVoucherNFTBalanceOfIssuer).to.equal(1)
-        expect(foodVoucherNFTBalanceOfUser1).to.equal(0)
+        expect(foodVoucherNFTBalanceOfrefugee).to.equal(0)
     })
 
     it('Accepts and validates calls', async function () {
@@ -124,7 +124,7 @@ describe('Unit test - WorldIdGatedVoucher', function () {
         //@dev - A issuer approve the WorldIdGatedVoucher contract to spend tokenID of FoodVoucherNFT
         let tx2 = await foodVoucherNFT.connect(issuer).approve(WORLD_ID_GATED_VOUCHER, tokenId);
 
-        const tx3 = await worldIdGatedVoucher.connect(user1).claimFoodVoucher(
+        const tx3 = await worldIdGatedVoucher.connect(refugee).claimFoodVoucher(
             foodVoucherProgramId, 
             callerAddr,               // receiver
             await getRoot(),
@@ -146,13 +146,13 @@ describe('Unit test - WorldIdGatedVoucher', function () {
 
         let foodVoucherNFTBalanceOfDeployer = await foodVoucherNFT.balanceOf(DEPLOYER)
         let foodVoucherNFTBalanceOfIssuer = await foodVoucherNFT.balanceOf(ISSUER)
-        let foodVoucherNFTBalanceOfUser1 = await foodVoucherNFT.balanceOf(USER_1)
+        let foodVoucherNFTBalanceOfrefugee = await foodVoucherNFT.balanceOf(REFUGEE)
         console.log(`##### FoodVoucherNFT balance of deployer: ${ foodVoucherNFTBalanceOfDeployer } #####`)
         console.log(`##### FoodVoucherNFT balance of issuer: ${ foodVoucherNFTBalanceOfIssuer } #####`)
-        console.log(`##### FoodVoucherNFT balance of user1: ${ foodVoucherNFTBalanceOfUser1 } #####`)
+        console.log(`##### FoodVoucherNFT balance of refugee: ${ foodVoucherNFTBalanceOfrefugee } #####`)
         expect(foodVoucherNFTBalanceOfDeployer).to.equal(0)
         expect(foodVoucherNFTBalanceOfIssuer).to.equal(0)
-        expect(foodVoucherNFTBalanceOfUser1).to.equal(1)
+        expect(foodVoucherNFTBalanceOfrefugee).to.equal(1)
     })
 
     it('Rejects duplicated calls', async function () {
@@ -175,7 +175,7 @@ describe('Unit test - WorldIdGatedVoucher', function () {
         //@dev - A issuer approve the WorldIdGatedVoucher contract to spend tokenID of FoodVoucherNFT
         let tx2 = await foodVoucherNFT.connect(issuer).approve(WORLD_ID_GATED_VOUCHER, tokenId);
 
-        const tx3 = await worldIdGatedVoucher.connect(user1).claimFoodVoucher(
+        const tx3 = await worldIdGatedVoucher.connect(refugee).claimFoodVoucher(
             foodVoucherProgramId, 
             callerAddr,               // receiver
             await getRoot(),
