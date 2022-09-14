@@ -101,11 +101,6 @@ describe('Scenario test - WorldIdGatedVoucher\n', function () {
     })
 
     it('createFoodVoucherProgram() - An issuer create a FoodVoucherProgram / Then, claimFoodVoucher() - refugee claim a FoodVoucherNFT', async function () {
-        //@dev - refugee is assigned as a caller address (that is also a claimer address)
-        callerAddr = REFUGEE
-        console.log(`\n callerAddr: ${ callerAddr }`)
-        expect(callerAddr).to.equal(REFUGEE)
-
         //@dev - Create a new FoodVoucherProgram
         const groupId = 1
         const token = FOOD_VOUCHER_NFT
@@ -125,9 +120,10 @@ describe('Scenario test - WorldIdGatedVoucher\n', function () {
         //@dev - A issuer approve the WorldIdGatedVoucher contract to spend tokenID of FoodVoucherNFT
         let tx2 = await foodVoucherNFT.connect(issuer).approve(WORLD_ID_GATED_VOUCHER, tokenId);
 
+        //dev - A refugee claim the Food Voucher (Food Voucher NFT)
         const tx3 = await worldIdGatedVoucher.connect(refugee).claimFoodVoucher(
             foodVoucherProgramId, 
-            callerAddr,  // receiver
+            REFUGEE,  // receiver
             await getRoot(),
             nullifierHash,
             proof
