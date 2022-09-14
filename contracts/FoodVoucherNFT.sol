@@ -34,7 +34,7 @@ contract FoodVoucherNFT is IFoodVoucherNFT, ERC721, AccessControl {
     }
 
     /**
-     * @notice - Support interface for both ERC721 and AccessControl
+     * @notice - Supports interface for overriding both ERC721 and AccessControl
      */ 
     function supportsInterface(bytes4 interfaceId) public view virtual override(ERC721, AccessControl) returns (bool) {
         return super.supportsInterface(interfaceId);
