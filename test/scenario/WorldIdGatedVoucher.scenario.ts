@@ -75,17 +75,16 @@ describe('Scenario test - WorldIdGatedVoucher\n', function () {
         console.log(`\nDeployed-address of the WorldIdGatedVoucher.sol: ${ WORLD_ID_GATED_VOUCHER }\n`)
         await worldIdGatedVoucher.deployed()
 
-        //@dev - [TODO]: At the end of implementation, this deployment part should be replaced with a method defined in the FoodVoucherNFTFactory.sol
         //@dev - Deploy a FoodVoucherNFT.sol
         const FoodVoucherNFT = await ethers.getContractFactory('FoodVoucherNFT')
-        foodVoucherNFT = await FoodVoucherNFT.deploy()
+        foodVoucherNFT = await FoodVoucherNFT.deploy(ISSUER)
         FOOD_VOUCHER_NFT = foodVoucherNFT.address
         console.log(`Deployed-address of the FoodVoucherNFT.sol: ${ FOOD_VOUCHER_NFT }\n`)
         await foodVoucherNFT.deployed()
     })
 
     it('Mint a FoodVoucherNFT (tokenID=0) to issuer', async function () {
-        let tx1 = await foodVoucherNFT.connect(deployer).mintFoodVoucherNFT(ISSUER)
+        let tx1 = await foodVoucherNFT.connect(issuer).mintFoodVoucherNFT(ISSUER)
     })
 
     it('Check FoodVoucherNFT balance of each wallet addresses before claiming - Issuer should has a FoodVoucherNFT. Refugee should not has a FoodVoucherNFT\n', async function () {
