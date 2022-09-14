@@ -1,5 +1,5 @@
-## World ID-gated Food Voucher🎫🆔 for refugees who live in African countries 🌍
-### Overview
+# World ID-gated Food Voucher🎫🆔 for refugees who live in African countries 🌍
+## Overview
 - Essencially, it's difficult for refugees to show their identity. 
   - Therefore, it has been hard for organizations (such as NPOs, NGOs, etc) to efficiently distribute foods into refugees. As a result, there are still problem that refugees could not access foods easily and securely.
   - In case of refugees in africa such as refugees who live in Eastern Africa are suffering food crisis due to COVID-19 pandemic.
@@ -13,13 +13,13 @@
 
 <br>
 
-### Diagram of workflow
+## Diagram of workflow
 - Diagram of entire workflow of this smart contract
   ![diagram_20220913](https://user-images.githubusercontent.com/19357502/189883101-0984e3d1-f532-4d53-88cd-2ee61f00a305.jpeg)
 
 <br>
 
-### Test
+## Test
 - Scenario test of the WorldIdGatedVoucher.sol  (<=This test show entire workflow of this smart contract)
 ```
 npm run test-scenario:WorldIdGatedVoucher
@@ -34,12 +34,12 @@ npm run test-unit:WorldIdGatedVoucher
 
 <br>
 
-### Demo
+## Demo
 - This link of video demo is for showing the Scenario test of the WorldIdGatedVoucher.sol
 
 <br>
 
-### Resources
+## Resources
 - Worldcoin: 
   - World ID: 
   - World ID Starter Kit (Hardhat version): https://github.com/worldcoin/world-id-starter-hardhat
