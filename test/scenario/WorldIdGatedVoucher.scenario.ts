@@ -88,7 +88,7 @@ describe('Scenario test - WorldIdGatedVoucher\n', function () {
         let tx1 = await foodVoucherNFT.connect(deployer).mintFoodVoucherNFT(ISSUER)
     })
 
-    it('Check FoodVoucherNFT balance of each wallet addresses before claiming - Issuer should has a FoodVoucherNFT. Refugee should not has a FoodVoucherNFT', async function () {
+    it('Check FoodVoucherNFT balance of each wallet addresses before claiming - Issuer should has a FoodVoucherNFT. Refugee should not has a FoodVoucherNFT\n', async function () {
         let foodVoucherNFTBalanceOfDeployer = await foodVoucherNFT.balanceOf(DEPLOYER)
         let foodVoucherNFTBalanceOfIssuer = await foodVoucherNFT.balanceOf(ISSUER)
         let foodVoucherNFTBalanceOfrefugee = await foodVoucherNFT.balanceOf(REFUGEE)
@@ -100,12 +100,7 @@ describe('Scenario test - WorldIdGatedVoucher\n', function () {
         expect(foodVoucherNFTBalanceOfrefugee).to.equal(0)
     })
 
-    it('createFoodVoucherProgram() - An issuer create a FoodVoucherProgram / Then, claimFoodVoucher() - refugee claim a FoodVoucherNFT', async function () {
-        //@dev - refugee is assigned as a caller address (that is also a claimer address)
-        callerAddr = REFUGEE
-        console.log(`\n callerAddr: ${ callerAddr }`)
-        expect(callerAddr).to.equal(REFUGEE)
-
+    it('createFoodVoucherProgram() - Issuer create a FoodVoucherProgram / Then, claimFoodVoucher() - Refugee claim a FoodVoucherNFT', async function () {
         //@dev - Create a new FoodVoucherProgram
         const groupId = 1
         const token = FOOD_VOUCHER_NFT
@@ -120,14 +115,15 @@ describe('Scenario test - WorldIdGatedVoucher\n', function () {
         await registerIdentity()
 
         //@dev - get proof
-        const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_VOUCHER, callerAddr)
+        const [nullifierHash, proof] = await getProof(WORLD_ID_GATED_VOUCHER, REFUGEE)
 
         //@dev - A issuer approve the WorldIdGatedVoucher contract to spend tokenID of FoodVoucherNFT
         let tx2 = await foodVoucherNFT.connect(issuer).approve(WORLD_ID_GATED_VOUCHER, tokenId);
 
+        //dev - A refugee claim the Food Voucher (Food Voucher NFT)
         const tx3 = await worldIdGatedVoucher.connect(refugee).claimFoodVoucher(
             foodVoucherProgramId, 
-            callerAddr,  // receiver
+            REFUGEE,  // receiver
             await getRoot(),
             nullifierHash,
             proof
