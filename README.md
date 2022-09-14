@@ -7,7 +7,7 @@
 
 <br>
 
-- This smart contract makes checking identity of refugees easier and more secure. As a result, refugees can access essential foods more efficiently and securely in order to reduce hunger by utilizing `World ID` gated voucher.
+- This smart contract makes checking identity of refugees easier and more secure by utilizing `World ID` gated voucher. As a result, refugees can access essential foods more efficiently and securely. It lead to reducing hunger in the world.
   ( `World ID` allows to easily add sybil-resistance )
 
 <br>
