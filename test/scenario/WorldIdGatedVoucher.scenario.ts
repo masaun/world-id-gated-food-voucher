@@ -23,7 +23,7 @@ import { fromWei } from "../ethersjs-helper/ethersjsHelper"
 /**
  * @notice - The scenario test of the WorldIdGatedVoucher
  */ 
-describe('Scenario test - WorldIdGatedVoucher', function () {
+describe('Scenario test - WorldIdGatedVoucher\n', function () {
     //@dev - Variables of smart contract instances
     let worldIdGatedVoucher: WorldIdGatedVoucher
     let foodVoucherNFT: FoodVoucherNFT
@@ -33,7 +33,7 @@ describe('Scenario test - WorldIdGatedVoucher', function () {
     let FOOD_VOUCHER_NFT: string
 
     //@dev - Variables of wallet address
-    let callerAddr: string
+    let callerAddr: string  // msg.sender 
 
     //@dev - Signers
     let signers: SignerWithAddress[]
@@ -63,16 +63,16 @@ describe('Scenario test - WorldIdGatedVoucher', function () {
         REFUGEE = refugee.address
         console.log(`Wallet address of deployer: ${ DEPLOYER }`)
         console.log(`Wallet address of issuer: ${ ISSUER }`)
-        console.log(`Wallet address of refugee: ${ REFUGEE }`)
+        console.log(`Wallet address of refugee: ${ REFUGEE }\n`)
 
         const worldIDAddress = await setUpWorldID()
-        console.log(`WorldID deployed-address: ${ worldIDAddress }`)
+        console.log(`WorldID deployed-address: ${ worldIDAddress }\n`)
 
         //@dev - Deploy the WorldIdGatedVoucher.sol
         const WorldIdGatedVoucher = await ethers.getContractFactory('WorldIdGatedVoucher')
         worldIdGatedVoucher = await WorldIdGatedVoucher.deploy(worldIDAddress)
         WORLD_ID_GATED_VOUCHER = worldIdGatedVoucher.address
-        console.log(`Deployed-address of the WorldIdGatedVoucher.sol: ${ WORLD_ID_GATED_VOUCHER }`)
+        console.log(`\nDeployed-address of the WorldIdGatedVoucher.sol: ${ WORLD_ID_GATED_VOUCHER }\n`)
         await worldIdGatedVoucher.deployed()
 
         //@dev - [TODO]: At the end of implementation, this deployment part should be replaced with a method defined in the FoodVoucherNFTFactory.sol
@@ -80,7 +80,7 @@ describe('Scenario test - WorldIdGatedVoucher', function () {
         const FoodVoucherNFT = await ethers.getContractFactory('FoodVoucherNFT')
         foodVoucherNFT = await FoodVoucherNFT.deploy()
         FOOD_VOUCHER_NFT = foodVoucherNFT.address
-        console.log(`Deployed-address of the FoodVoucherNFT.sol: ${ FOOD_VOUCHER_NFT }`)
+        console.log(`Deployed-address of the FoodVoucherNFT.sol: ${ FOOD_VOUCHER_NFT }\n`)
         await foodVoucherNFT.deployed()
     })
 
@@ -88,11 +88,11 @@ describe('Scenario test - WorldIdGatedVoucher', function () {
         let tx1 = await foodVoucherNFT.connect(deployer).mintFoodVoucherNFT(ISSUER)
     })
 
-    it('Check FoodVoucherNFT balance of each wallet addresses before claiming - Issuer should has a FoodVoucherNFT. refugee should not has a FoodVoucherNFT', async function () {
+    it('Check FoodVoucherNFT balance of each wallet addresses before claiming - Issuer should has a FoodVoucherNFT. Refugee should not has a FoodVoucherNFT', async function () {
         let foodVoucherNFTBalanceOfDeployer = await foodVoucherNFT.balanceOf(DEPLOYER)
         let foodVoucherNFTBalanceOfIssuer = await foodVoucherNFT.balanceOf(ISSUER)
         let foodVoucherNFTBalanceOfrefugee = await foodVoucherNFT.balanceOf(REFUGEE)
-        console.log(`##### FoodVoucherNFT balance of deployer: ${ foodVoucherNFTBalanceOfDeployer } #####`)
+        console.log(`\n##### FoodVoucherNFT balance of deployer: ${ foodVoucherNFTBalanceOfDeployer } #####`)
         console.log(`##### FoodVoucherNFT balance of issuer: ${ foodVoucherNFTBalanceOfIssuer } #####`)
         console.log(`##### FoodVoucherNFT balance of refugee: ${ foodVoucherNFTBalanceOfrefugee } #####`)
         expect(foodVoucherNFTBalanceOfDeployer).to.equal(0)
@@ -103,7 +103,7 @@ describe('Scenario test - WorldIdGatedVoucher', function () {
     it('createFoodVoucherProgram() - An issuer create a FoodVoucherProgram / Then, claimFoodVoucher() - refugee claim a FoodVoucherNFT', async function () {
         //@dev - refugee is assigned as a caller address (that is also a claimer address)
         callerAddr = REFUGEE
-        console.log(`callerAddr: ${ callerAddr }`)
+        console.log(`\n callerAddr: ${ callerAddr }`)
         expect(callerAddr).to.equal(REFUGEE)
 
         //@dev - Create a new FoodVoucherProgram
@@ -138,11 +138,11 @@ describe('Scenario test - WorldIdGatedVoucher', function () {
         //@dev - Extra checks here
     })
 
-    it('Check FoodVoucherNFT balance of each wallet addresses after claiming - refugee should has a FoodVoucherNFT. Issuer should not has a FoodVoucherNFT', async function () {
+    it('Check FoodVoucherNFT balance of each wallet addresses after claiming - Refugee should has a FoodVoucherNFT. Issuer should not has a FoodVoucherNFT', async function () {
         let foodVoucherNFTBalanceOfDeployer = await foodVoucherNFT.balanceOf(DEPLOYER)
         let foodVoucherNFTBalanceOfIssuer = await foodVoucherNFT.balanceOf(ISSUER)
         let foodVoucherNFTBalanceOfrefugee = await foodVoucherNFT.balanceOf(REFUGEE)
-        console.log(`##### FoodVoucherNFT balance of deployer: ${ foodVoucherNFTBalanceOfDeployer } #####`)
+        console.log(`\n##### FoodVoucherNFT balance of deployer: ${ foodVoucherNFTBalanceOfDeployer } #####`)
         console.log(`##### FoodVoucherNFT balance of issuer: ${ foodVoucherNFTBalanceOfIssuer } #####`)
         console.log(`##### FoodVoucherNFT balance of refugee: ${ foodVoucherNFTBalanceOfrefugee } #####`)
         expect(foodVoucherNFTBalanceOfDeployer).to.equal(0)
