@@ -1,14 +1,15 @@
 ## World ID-gated Food Voucher🎫🆔 for refugees who live in African countries 🌍
 ### Overview
 - Essencially, it's difficult for refugees to show their identity. 
-  - Therefore, it has been hard for organizations (such as NPOs, NGOs, etc) to distribute foods into refugees. As a result, there are still issues that refugees could not access foods easily and securely.
+  - Therefore, it has been hard for organizations (such as NPOs, NGOs, etc) to efficiently distribute foods into refugees. As a result, there are still problem that refugees could not access foods easily and securely.
   - In case of refugees in africa such as refugees who live in Eastern Africa are suffering food crisis due to COVID-19 pandemic.
     https://www.wfp.org/news/food-rations-cut-refugees-eastern-africa-coronavirus-stretches-resources
 
 <br>
 
-- This smart contract makes checking identity of refugees easier and more secure by utilizing `World ID` gated voucher. ( `World ID` allow this smart contract to easily add sybil-resistance)
-  - As a result, refugees can access essential foods more efficiently and securely. It lead to reducing hunger in the world.
+- This smart contract is used for solving the problem above.
+  - This smart contract makes checking identity of refugees easier and more secure by utilizing `World ID` gated voucher. ( `World ID` allow this smart contract to easily add sybil-resistance)
+    - As a result, refugees can access essential foods more efficiently and securely. It lead to reducing hunger in the world.
 
 <br>
 
@@ -18,12 +19,14 @@
 
 <br>
 
-### Specifications
-- This smart contract is a extended-contract of the World ID Starter Kit (Hardhat version): https://github.com/worldcoin/world-id-starter-hardhat
+### Test
+- Scenario test of the WorldIdGatedVoucher.sol  (<=This test show entire workflow of this smart contract)
+```
+npm run test-scenario:WorldIdGatedVoucher
+```
 
 <br>
 
-### Test
 - Unit test of the WorldIdGatedVoucher.sol
 ```
 npm run test-unit:WorldIdGatedVoucher
@@ -31,16 +34,15 @@ npm run test-unit:WorldIdGatedVoucher
 
 <br>
 
-- Scenario test of the WorldIdGatedVoucher.sol
-```
-npm run test-scenario:WorldIdGatedVoucher
-```
+### Demo
+- This link of video demo is for showing the Scenario test of the WorldIdGatedVoucher.sol
 
 <br>
 
 ### Resources
 - Worldcoin: 
-  - World ID:
+  - World ID: 
+  - World ID Starter Kit (Hardhat version): https://github.com/worldcoin/world-id-starter-hardhat
 
 <br>
 
