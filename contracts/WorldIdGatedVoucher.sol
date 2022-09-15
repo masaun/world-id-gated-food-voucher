@@ -118,12 +118,12 @@ contract WorldIdGatedVoucher is IWorldIdGatedVoucher {
             proof
         );
 
-        // finally, we record they've done this, so they can't do it again (proof of uniqueness)
+        //@dev - Record they've done this, so they can't do it again (proof of uniqueness)
         nullifierHashes[nullifierHash] = true;
         emit Events.FoodVoucherProgramClaimed(foodVoucherProgramId, receiver);
 
-        //[TODO]: your logic here, make sure to emit some kind of event afterwards!
-        uint256 tokenId = 0; //[TODO]: Replace
+        //@dev - Logic that is executed after verify a proof
+        uint256 tokenId = 0;
         FoodVoucherNFT foodVoucherNFT = foodVoucherProgram.token;
         foodVoucherNFT.transferFrom(foodVoucherProgram.holder, receiver, tokenId);
         //SafeTransferLib.safeTransferFrom(airdrop.token, airdrop.holder, receiver, airdrop.amount);
