@@ -1,15 +1,27 @@
-# World ID-gated Food Voucher🎫🆔 for refugees who live in African countries 🌍
-## Overview
-- Essencially, it's difficult for refugees to show their identity. 
-  - Therefore, it has been hard for organizations (such as NPOs, NGOs, etc) to efficiently distribute foods into refugees. As a result, there are still problem that refugees could not access foods easily and securely.
-  - In case of refugees in africa such as refugees who live in Eastern Africa are suffering food crisis due to COVID-19 pandemic.
+# World ID-gated Food Voucher🎫🆔 for food rations for refugees
+## Overview 
+- There has been the problem of food crisis for refugees.
+  - There are refugees in africa, for example, there are refugees who is suffering food crisis due to COVID-19 pandemic. It lead refugees to serious hunger, etc.  
     https://www.wfp.org/news/food-rations-cut-refugees-eastern-africa-coronavirus-stretches-resources
+  - Therefore, organizations (such as NPOs, NGOs, etc) that is responsible of food rations for refugees has required to verify refugees (of identity, qualification, etc) more speedy and securely.
 
 <br>
 
-- This smart contract is used for solving the problem above.
-  - This smart contract makes checking identity of refugees easier and more secure by utilizing `World ID` gated voucher. ( `World ID` allow this smart contract to easily add sybil-resistance)
-    - As a result, refugees can access essential foods more efficiently and securely. It lead to reducing hunger in the world.
+- This smart contract is used for supporting to solve the problem of food ration for refugees like above (that is related to the Zero Hunger of SDGs 2).
+  - This smart contract utilize [World ID](https://github.com/worldcoin/world-id-starter#-about-world-id) as a gate for checking qualification who can claim food voucher and verifying it.
+    - `World ID` genarate a proof based on the zero knowledge proof (ZKP) technology. 
+    - Only refugees who are registered with World ID and has a proof generated can claim food voucher NFTs.
+    - By using World ID-gated voucher via this smart contract, organizations (such as NPOs, NGOs, etc) that is resposible for food rations for refugees verify thier qualifications more efficient and more secure and more transparent. 
+  - World ID-based verification that is used in this smart contract might be a good alternative verification solution instead of the way based on [biometric verification](https://medium.com/world-food-programme-insight/the-full-circuit-how-wfp-is-enabling-biometric-verification-in-uganda-823da0bf6ba7).
+     
+
+<br>
+
+- Remarks:
+  - `World ID` is a protocol that lets you prove a human is doing an action only once without revealing any personal data. Stop bots, stop abuse.
+    - World ID uses a device called the `Orb` which takes a picture of a person's iris to verify they are a unique and alive human. The protocol uses `Zero-knowledge proofs (ZKPs)` so no traceable information is ever public.  
+    - World ID is meant for on-chain web3 apps, traditional cloud applications, and even IRL verifications.  
+      (Source from: https://github.com/worldcoin/world-id-starter#-about-world-id )
 
 <br>
 
@@ -41,13 +53,13 @@ npm run test-unit:WorldIdGatedVoucher
 <br>
 
 ## Resources
-- Worldcoin: 
-  - World ID: 
+- Worldcoin: https://worldcoin.org/the-worldcoin-protocol
+  - World ID: https://github.com/worldcoin/world-id-starter#-about-world-id 
   - World ID Starter Kit (Hardhat version): https://github.com/worldcoin/world-id-starter-hardhat
 
 <br>
 
-- Relevant articles:
+- Relevant articles of food ration for refugees:
   - WFP (The United Nations World Food Programme):  
     - Food rations cut for refugees in Eastern Africa as coronavirus stretches resources  
       https://www.wfp.org/news/food-rations-cut-refugees-eastern-africa-coronavirus-stretches-resources  
