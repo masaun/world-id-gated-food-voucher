@@ -14,7 +14,7 @@ import { IFoodVoucherNFT } from "./interfaces/IFoodVoucherNFT.sol";
  */
 contract FoodVoucherNFT is IFoodVoucherNFT, ERC721, AccessControl {
     using Counters for Counters.Counter;
-    Counters.Counter private _tokenIdCounter; // Token ID is counted from 1
+    Counters.Counter private _tokenIdCounter; // Token ID is counted from 0
 
     bytes32 public constant ISSUER_ROLE = keccak256("ISSUER_ROLE");
 
@@ -24,13 +24,13 @@ contract FoodVoucherNFT is IFoodVoucherNFT, ERC721, AccessControl {
 
     /**
      * @notice - Mint a new FoodVoucherNFT 
-     * @dev - Token ID is counted from 1
+     * @dev - Only user who has a issur role ("ISSURE_ROLE") can execute this method
      */
     function mintFoodVoucherNFT(address to) external override onlyRole(ISSUER_ROLE) {
-        uint256 tokenId = _tokenIdCounter.current();
-        _tokenIdCounter.increment();
-
+        uint256 tokenId = _tokenIdCounter.current(); // Token ID is counted from 0
         _safeMint(to, tokenId);
+
+        _tokenIdCounter.increment();  // Update tokenID of this NFT
     }
 
     /**

@@ -107,7 +107,7 @@ describe('Scenario test - WorldIdGatedVoucher\n', function () {
         const tokenId: number = 0  //@dev - TokenID of FoodVoucherNFTs
         let tx1 = await worldIdGatedVoucher.connect(issuer).createFoodVoucherProgram(groupId, token, holder, tokenId)
 
-        //[TODO]: Get foodVoucherProgramId via SC
+        //@dev - Assign Food Voucher Program Id
         let foodVoucherProgramId: number = 1
 
         //@dev - WorldId.addMember()
