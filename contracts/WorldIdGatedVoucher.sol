@@ -100,8 +100,8 @@ contract WorldIdGatedVoucher is IWorldIdGatedVoucher {
         uint256[8] calldata proof
     ) public override {
         //@dev - first, we make sure this person hasn't done this before
-        if (nullifierHashes[nullifierHash]) revert InvalidNullifier();
-        //if (nullifierHashes[nullifierHash]) revert Errors.InvalidNullifier();
+        if (nullifierHashes[nullifierHash]) revert Errors.InvalidNullifier();
+        //if (nullifierHashes[nullifierHash]) revert InvalidNullifier();
 
         DataTypes.FoodVoucherProgram memory foodVoucherProgram = getFoodVoucherPrograms[foodVoucherProgramId];
         if (foodVoucherProgramId == 0 || foodVoucherProgramId >= nextFoodVoucherProgramId) revert Errors.InvalidFoodVoucherProgram();
@@ -113,8 +113,8 @@ contract WorldIdGatedVoucher is IWorldIdGatedVoucher {
             foodVoucherProgram.groupId,
             abi.encodePacked(receiver).hashToField(),
             nullifierHash,
-            abi.encodePacked(address(this)).hashToField(),  // [Test]: Success
-            //abi.encodePacked(address(this), foodVoucherProgramId).hashToField(), // Fail (Reverted with "InvalidProof")
+            abi.encodePacked(address(this)).hashToField(),                          // [Result]: Success
+            //abi.encodePacked(address(this), foodVoucherProgramId).hashToField(),  // [Result]: Fail (Reverted with "InvalidProof")
             proof
         );
 
@@ -138,8 +138,8 @@ contract WorldIdGatedVoucher is IWorldIdGatedVoucher {
     /// @param foodVoucherProgramId The id of the foodVoucherProgram to update
     /// @param foodVoucherProgram The new details for the foodVoucherProgram
     function updateDetails(uint256 foodVoucherProgramId, DataTypes.FoodVoucherProgram calldata foodVoucherProgram) public override {
-        if (getFoodVoucherPrograms[foodVoucherProgramId].manager != msg.sender) revert Unauthorized();
-        //if (getFoodVoucherPrograms[foodVoucherProgramId].manager != msg.sender) revert Errors.Unauthorized();
+        if (getFoodVoucherPrograms[foodVoucherProgramId].manager != msg.sender) revert Errors.Unauthorized();
+        //if (getFoodVoucherPrograms[foodVoucherProgramId].manager != msg.sender) revert Unauthorized();
 
         getFoodVoucherPrograms[foodVoucherProgramId] = foodVoucherProgram;
 
