@@ -10,7 +10,9 @@
 - This smart contract is used for supporting to solve the problem of food ration for refugees like above (that is related to the Zero Hunger of SDGs 2).
   - This smart contract utilize [World ID](https://github.com/worldcoin/world-id-starter#-about-world-id) as a gate for checking qualification who can claim food voucher and verifying it.
     - `World ID` genarate a proof based on the zero knowledge proof (ZKP) technology. 
-    - Only refugees who are registered with World ID and has a proof generated can claim food voucher NFTs.
+    - Only refugees who are registered with World ID and has a proof generated can claim food voucher.
+      - Once a refugee who has a proof claim food voucher, they receive a `Food Voucher NFT` .
+      - Then, refugees show the `Food Voucher NFT` received for organizations (such as NPOs, NGOs, etc) that is responsible of food rations in the physical places where food rations is conducted.
     - By using World ID-gated voucher via this smart contract, organizations (such as NPOs, NGOs, etc) that is resposible for food rations for refugees verify thier qualifications more efficient and more secure and more transparent. 
   - World ID-based verification that is used in this smart contract might be a good alternative verification solution instead of the way based on [biometric verification](https://medium.com/world-food-programme-insight/the-full-circuit-how-wfp-is-enabling-biometric-verification-in-uganda-823da0bf6ba7).
      
@@ -56,6 +58,7 @@ npm run test-unit:WorldIdGatedVoucher
 - Worldcoin: https://worldcoin.org/the-worldcoin-protocol
   - World ID: https://github.com/worldcoin/world-id-starter#-about-world-id 
   - World ID Starter Kit (Hardhat version): https://github.com/worldcoin/world-id-starter-hardhat
+  - World ID Starter Kit (Foundry version): https://github.com/worldcoin/world-id-starter
 
 <br>
 
